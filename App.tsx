@@ -4,7 +4,10 @@ import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 // == COMPONENTS
+import Header from './components/Menu/Header';
 import LandingPage from './components/LandingPage';
+import HomePage from './components/HomePage';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -16,7 +19,10 @@ export default function App() {
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 1}}
       >
+        <Header />
         <LandingPage />
+        {/* <HomePage /> */}
+        <Footer />
       </LinearGradient>
     </View>
   );

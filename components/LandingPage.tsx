@@ -5,7 +5,7 @@ export default function LandingPage() {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Bienvenue sur  
-            <Text style={styles.appName}> Pomme d'Or...</Text>
+                <Text style={styles.appName}> Pomme d'Or...</Text>
             </Text>
             <Text style={styles.text}>Booste ta concentration tout en créant de nouvelles habitudes!</Text>
         </View>
@@ -14,7 +14,7 @@ export default function LandingPage() {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flex: 9,
       width: '100%',
       alignItems: 'center',
       justifyContent: 'center',
