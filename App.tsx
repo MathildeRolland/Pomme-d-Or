@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // == COMPONENTS
 import LandingPage from './components/LandingPage';
@@ -9,7 +10,14 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="#F7B53B" />
-      <LandingPage />
+      <LinearGradient
+                style={styles.container}
+                colors={["#F7F7FF", "#F7F7FF", "#F7B53B"]}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 1}}
+      >
+        <LandingPage />
+      </LinearGradient>
     </View>
   );
 }
@@ -17,6 +25,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
