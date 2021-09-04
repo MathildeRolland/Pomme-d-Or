@@ -20,8 +20,8 @@ export default function App() {
                 end={{x: 1, y: 1}}
       >
         <Header />
-        <LandingPage />
-        {/* <HomePage /> */}
+        {/* <LandingPage /> */}
+        <HomePage />
         <Footer />
       </LinearGradient>
     </View>
