@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
+import Colors from '../../vars/colors'
 
 // == COMPONENTS
 import Timer from './Timer';
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#373737",
+        backgroundColor: Colors.darkGrey,
         borderRadius: 15,
     }
 })

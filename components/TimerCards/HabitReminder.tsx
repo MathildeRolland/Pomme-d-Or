@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Colors from '../../vars/colors';
 
 export type Props = {
     habit: string,
@@ -16,7 +17,7 @@ const HabitReminder: React.FC<Props> = ({ habit }) => {
 const styles = StyleSheet.create({
     container: {
         fontSize: 30,
-        color: "#F7B53B",
+        color: Colors.gold,
         width: 250,
         textAlign: 'center',
         marginTop: 25,

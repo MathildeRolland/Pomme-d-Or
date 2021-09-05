@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable, Text } from 'react-native';
+import Colors from '../../vars/colors';
 
 export type Props = {
     text: string,
@@ -17,12 +18,11 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: "#E49AB0",
+        borderColor: Colors.pink,
         borderRadius: 5,
-        color: "#E49AB0",
     },
     buttonTitle: {
-        color: "#E49AB0",
+        color: Colors.pink,
         marginHorizontal: 25,
         marginVertical: 5
     }

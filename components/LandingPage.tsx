@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Colors from '../vars/colors'
 
 export default function LandingPage() {
     return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     appName: {
-      color: "#F7B53B",
+      color: Colors.gold,
       fontWeight: 'bold',
       fontStyle: 'italic'
     },
