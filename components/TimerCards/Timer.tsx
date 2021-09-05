@@ -17,8 +17,10 @@ const styles = StyleSheet.create({
         borderRadius: 115,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 30
     },
     text: {
         fontSize: 50,
+        color: "#373737",
     }
 })
