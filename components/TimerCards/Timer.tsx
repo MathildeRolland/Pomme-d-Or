@@ -3,14 +3,14 @@ import { StyleSheet, View, Text } from 'react-native';
 
 export default function Timer() {
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>25:00</Text>
+        <View style={styles.container1}>
+            <Text style={styles.text1}>25:00</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container1: {
         width: 230,
         height: 230,
         backgroundColor: "#F7B53B",
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 30
     },
-    text: {
+    text1: {
         fontSize: 50,
         color: "#373737",
     }

@@ -6,11 +6,11 @@ import Colors from '../../vars/colors';
 import Timer from './Timer';
 import Button from './Button';
 
-export default function WorkCard() {
+export default function PauseCard() {
     return (
         <View style={styles.container}>
             <Timer />
-            <Button text="Stop" />
+            <Text>REPOS DU GUERRIER...</Text>
         </View>
     )
 }
@@ -22,5 +22,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: Colors.gold,
         borderRadius: 15,
-    }
-})
+    },
+});
