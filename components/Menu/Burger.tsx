@@ -13,7 +13,7 @@ export default function Burger() {
 
 const styles = StyleSheet.create({
     container: {
-
+        marginRight: 15,
     },
     burgerdot: {
         width: 7,

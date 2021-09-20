@@ -6,8 +6,9 @@ import Colors from './vars/colors';
 
 // == COMPONENTS
 import Header from './components/Menu/Header';
-import LandingPage from './components/LandingPage';
-import HomePage from './components/HomePage';
+import LandingPage from './screens/LandingPage';
+import HomePage from './screens/HomePage';
+import Options from './screens/Options';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <Header />
         {/* <LandingPage /> */}
         <HomePage />
+        {/* <Options /> */}
         <Footer />
       </LinearGradient>
     </View>

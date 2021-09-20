@@ -11,7 +11,7 @@ export default function Footer() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: .4,
+        marginBottom: 10,
         textAlign: 'center',
     },
     text: {
