@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Colors from '../vars/colors';
+
+// == COMPONENTS
+import NumericInput from '../components/Options/NumericInput';
 
 interface OptionsProps {
     concentrationTime: string,
@@ -19,7 +22,11 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
             <View>
                 <View style={styles.fieldset}>
                     <Text style={styles.label}>Concentration (min):</Text>
-                    <View style={styles.timeSetUp}>
+                    <NumericInput 
+                        defaultValue={concentrationTime}
+                        setNewValue={setConcentrationTime}
+                    />
+                    {/* <View style={styles.timeSetUp}>
                         <TouchableOpacity>
                             <Text style={[styles.changeTime, {fontSize: 25}]}>-</Text>
                         </TouchableOpacity>
@@ -34,12 +41,16 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
                         <TouchableOpacity>
                             <Text style={styles.changeTime}>+</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
 
                 <View style={styles.fieldset}>
                     <Text style={styles.label}>Pause (min):</Text>
-                    <View style={styles.timeSetUp}>
+                    <NumericInput 
+                        defaultValue={relaxTime}
+                        setNewValue={setRelaxTime}
+                    />
+                    {/* <View style={styles.timeSetUp}>
                         <TouchableOpacity>
                             <Text style={[styles.changeTime, {fontSize: 25}]}>-</Text>
                         </TouchableOpacity>
@@ -53,7 +64,7 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
                         <TouchableOpacity>
                             <Text style={styles.changeTime}>+</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
 
                 <View style={[styles.fieldset, {alignItems: 'flex-start'}]}>
