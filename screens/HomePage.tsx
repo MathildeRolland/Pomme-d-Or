@@ -8,8 +8,8 @@ import PauseCard from '../components/TimerCards/PauseCard';
 export default function HomePage() {
     return (
         <View style={styles.container}>
-            <WorkCard />
-            {/* <PauseCard /> */}
+            {/* <WorkCard /> */}
+            <PauseCard />
         </View>
     )
 }

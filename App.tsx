@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from './vars/colors';
@@ -12,6 +12,10 @@ import Options from './screens/Options';
 import Footer from './components/Footer';
 
 export default function App() {
+  const [concentrationTime, setConcentrationTime] = useState('25');
+  const [relaxTime, setRelaxTime] = useState('05');
+  const [currentHabbit, setCurrentHabbit] = useState('');
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="#F7B53B" />
@@ -23,8 +27,15 @@ export default function App() {
       >
         <Header />
         {/* <LandingPage /> */}
-        <HomePage />
-        {/* <Options /> */}
+        {/* <HomePage /> */}
+        <Options 
+          concentrationTime={concentrationTime}
+          relaxTime={relaxTime}
+          setConcentrationTime={setConcentrationTime}
+          setRelaxTime={setRelaxTime}
+          currentHabbit={currentHabbit}
+          setCurrentHabbit={setCurrentHabbit}
+        />
         <Footer />
       </LinearGradient>
     </View>
