@@ -12,7 +12,6 @@ interface buttonProps {
     text: string,
     defaultValue: string,
     setNewValue: React.Dispatch<React.SetStateAction<string>>
-    // handlePress: void
 }
 // == == == == == == == == == == == == == == == == == == == == == //
 
@@ -23,7 +22,6 @@ const NumericInput = ({ defaultValue, setNewValue }: Props) => {
                 text="-"
                 setNewValue={setNewValue}
                 defaultValue={defaultValue}
-                // handlePress={removeMinute(defaultValue, setNewValue)}
             />
             <TextInput 
                 style={styles.input}
@@ -37,7 +35,6 @@ const NumericInput = ({ defaultValue, setNewValue }: Props) => {
                 text="+"
                 setNewValue={setNewValue}
                 defaultValue={defaultValue}
-                // handlePress={addMinute(defaultValue, setNewValue)}
             />
         </View>
     )
