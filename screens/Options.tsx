@@ -57,9 +57,9 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
                 </View>
 
                 <View style={[styles.fieldset, {alignItems: 'flex-start'}]}>
-                    <Text style={styles.textareaLabel}>Mission:</Text>
+                    <Text style={styles.label}>Mission:</Text>
                     <TextInput 
-                        placeholder="Habitude"
+                        placeholder="Ecris ici l'habitude que tu souhaites implémenter ;) "
                         multiline={true}
                         numberOfLines={5}
                         style={[styles.input, styles.textarea]}
@@ -105,10 +105,6 @@ const styles = StyleSheet.create({
     label: {
         color: Colors.light,
     },
-    textareaLabel: {
-        color: Colors.light,
-        alignSelf: 'flex-start'
-    },
     input: {
         backgroundColor: Colors.light,
         borderRadius: 5,
@@ -117,10 +113,9 @@ const styles = StyleSheet.create({
     },
     textarea: {
         flex: 1,
-        justifyContent: 'flex-start',
         marginLeft: 15,
         height: 130,
-        paddingTop: 0,
+        textAlignVertical: 'top'
     },
     timeSetUp: {
         flexDirection: 'row',
