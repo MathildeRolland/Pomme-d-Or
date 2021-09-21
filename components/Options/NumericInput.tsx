@@ -9,16 +9,21 @@ interface Props {
 }
 
 interface buttonProps {
-    text: string
+    text: string,
+    defaultValue: string,
+    setNewValue: React.Dispatch<React.SetStateAction<string>>
+    // handlePress: void
 }
 // == == == == == == == == == == == == == == == == == == == == == //
-
 
 const NumericInput = ({ defaultValue, setNewValue }: Props) => {
     return (
         <View style={styles.timeSetUp}>
             <ChangeTimeButton
                 text="-"
+                setNewValue={setNewValue}
+                defaultValue={defaultValue}
+                // handlePress={removeMinute(defaultValue, setNewValue)}
             />
             <TextInput 
                 style={styles.input}
@@ -30,14 +35,27 @@ const NumericInput = ({ defaultValue, setNewValue }: Props) => {
             />
             <ChangeTimeButton 
                 text="+"
+                setNewValue={setNewValue}
+                defaultValue={defaultValue}
+                // handlePress={addMinute(defaultValue, setNewValue)}
             />
         </View>
     )
 }
 
-const ChangeTimeButton = ({ text }: buttonProps) => {
+const ChangeTimeButton = ({ text, defaultValue, setNewValue }: buttonProps) => {
+    const addMinute = (currentTime: string) => {
+        const newMinute = Number(currentTime) + 1;
+        return newMinute.toString();
+    }
+
+    const removeMinute = (currentTime:string) => {
+        const newMinute = Number(currentTime) - 1;
+        return newMinute.toString();
+    }
+
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() =>  setNewValue(text === "+" ? addMinute(defaultValue) : removeMinute(defaultValue))}>
             <Text style={styles.changeTime}>{text}</Text>
         </TouchableOpacity>
     )

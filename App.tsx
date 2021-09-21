@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   const [concentrationTime, setConcentrationTime] = useState('25');
-  const [relaxTime, setRelaxTime] = useState('05');
+  const [relaxTime, setRelaxTime] = useState('5');
   const [currentHabbit, setCurrentHabbit] = useState('');
 
   return (

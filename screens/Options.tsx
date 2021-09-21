@@ -5,6 +5,7 @@ import Colors from '../vars/colors';
 // == COMPONENTS
 import NumericInput from '../components/Options/NumericInput';
 
+// == == == == == == == == == TYPES == == == == == == == == == == //
 interface OptionsProps {
     concentrationTime: string,
     setConcentrationTime: React.Dispatch<React.SetStateAction<string>>,
@@ -13,9 +14,17 @@ interface OptionsProps {
     currentHabbit: string,
     setCurrentHabbit: React.Dispatch<React.SetStateAction<string>>
 }
+// == == == == == == == == == == == == == == == == == == == == == //
 
-const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConcentrationTime, setRelaxTime, currentHabbit, setCurrentHabbit }) => {
 
+const Options: React.FC<OptionsProps> = ({ 
+    concentrationTime,
+    relaxTime,
+    setConcentrationTime,
+    setRelaxTime,
+    currentHabbit,
+    setCurrentHabbit
+}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Options</Text>
@@ -26,22 +35,6 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
                         defaultValue={concentrationTime}
                         setNewValue={setConcentrationTime}
                     />
-                    {/* <View style={styles.timeSetUp}>
-                        <TouchableOpacity>
-                            <Text style={[styles.changeTime, {fontSize: 25}]}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput 
-                            style={styles.input}
-                            keyboardType='numeric'
-                            defaultValue={concentrationTime}
-                            maxLength={3}
-                            autoFocus={true}
-                            onChangeText={(concentrationTime) => setConcentrationTime(concentrationTime)}
-                        />
-                        <TouchableOpacity>
-                            <Text style={styles.changeTime}>+</Text>
-                        </TouchableOpacity>
-                    </View> */}
                 </View>
 
                 <View style={styles.fieldset}>
@@ -50,21 +43,6 @@ const Options: React.FC<OptionsProps> = ({ concentrationTime, relaxTime, setConc
                         defaultValue={relaxTime}
                         setNewValue={setRelaxTime}
                     />
-                    {/* <View style={styles.timeSetUp}>
-                        <TouchableOpacity>
-                            <Text style={[styles.changeTime, {fontSize: 25}]}>-</Text>
-                        </TouchableOpacity>
-                        <TextInput 
-                            style={styles.input}
-                            keyboardType='numeric'
-                            defaultValue={relaxTime}
-                            maxLength={3}
-                            onChangeText={(relaxTime) => setRelaxTime(relaxTime)}
-                        />
-                        <TouchableOpacity>
-                            <Text style={styles.changeTime}>+</Text>
-                        </TouchableOpacity>
-                    </View> */}
                 </View>
 
                 <View style={[styles.fieldset, {alignItems: 'flex-start'}]}>
@@ -128,14 +106,6 @@ const styles = StyleSheet.create({
         height: 130,
         textAlignVertical: 'top'
     },
-    timeSetUp: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    changeTime: {
-        marginHorizontal: 10,
-        fontSize: 20
-    }
 });
 
 
