@@ -6,10 +6,24 @@ import Colors from '../../vars/colors';
 import Timer from './Timer';
 import Button from './Button';
 
-export default function PauseCard() {
+// == == == == == == == == == == TYPES == == == == == == == == == == //
+interface Props {
+    relaxTime: string,
+    background: string,
+    textColor: string
+}
+// == == == == == == == == == == == == == == == == == == == == == == //
+
+
+
+export default function PauseCard({ relaxTime, background, textColor }: Props) {
     return (
         <View style={styles.container}>
-            <Timer />
+            <Timer 
+                time={relaxTime}
+                background={background}
+                textColor={textColor}
+            />
             <Text>REPOS DU GUERRIER...</Text>
         </View>
     )

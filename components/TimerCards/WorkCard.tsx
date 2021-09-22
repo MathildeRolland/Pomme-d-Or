@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Pressable, BackHandler } from 'react-native';
 import Colors from '../../vars/colors'
 
 // == COMPONENTS
@@ -9,17 +9,19 @@ import Button from './Button';
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
     concentrationTime: string,
-    setConcentrationTime: React.Dispatch<React.SetStateAction<string>>,
+    background: string,
+    textColor: string
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ concentrationTime, setConcentrationTime }: Props) => {
+const WorkCard = ({ concentrationTime, background, textColor }: Props) => {
     return (
         <View style={styles.container}>
             <Timer 
-                concentrationTime={concentrationTime}
-                setConcentrationTime={setConcentrationTime}
+                time={concentrationTime}
+                background={background}
+                textColor={textColor}
             />
             <Button text="Stop" />
         </View>
