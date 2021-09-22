@@ -6,10 +6,21 @@ import Colors from '../../vars/colors'
 import Timer from './Timer';
 import Button from './Button';
 
-export default function WorkCard() {
+// == == == == == == == == == == TYPES == == == == == == == == == == //
+interface Props {
+    concentrationTime: string,
+    setConcentrationTime: React.Dispatch<React.SetStateAction<string>>,
+}
+// == == == == == == == == == == == == == == == == == == == == == == //
+
+
+const WorkCard = ({ concentrationTime, setConcentrationTime }: Props) => {
     return (
         <View style={styles.container}>
-            <Timer />
+            <Timer 
+                concentrationTime={concentrationTime}
+                setConcentrationTime={setConcentrationTime}
+            />
             <Button text="Stop" />
         </View>
     )
@@ -24,3 +35,5 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     }
 })
+
+export default WorkCard;

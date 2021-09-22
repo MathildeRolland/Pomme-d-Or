@@ -27,15 +27,20 @@ export default function App() {
       >
         <Header />
         {/* <LandingPage /> */}
-        {/* <HomePage /> */}
-        <Options 
+        <HomePage 
+          concentrationTime={concentrationTime}
+          relaxTime={relaxTime}
+          setConcentrationTime={setConcentrationTime}
+          setRelaxTime={setRelaxTime}
+        />
+        {/* <Options 
           concentrationTime={concentrationTime}
           relaxTime={relaxTime}
           setConcentrationTime={setConcentrationTime}
           setRelaxTime={setRelaxTime}
           currentHabbit={currentHabbit}
           setCurrentHabbit={setCurrentHabbit}
-        />
+        /> */}
         <Footer />
       </LinearGradient>
     </View>
