@@ -10,13 +10,14 @@ import Button from './Button';
 interface Props {
     relaxTime: string,
     background: string,
-    textColor: string
+    textColor: string,
+    button: string
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
 
-export default function PauseCard({ relaxTime, background, textColor }: Props) {
+export default function PauseCard({ relaxTime, background, textColor, button }: Props) {
     return (
         <View style={styles.container}>
             <Timer 
@@ -24,7 +25,7 @@ export default function PauseCard({ relaxTime, background, textColor }: Props) {
                 background={background}
                 textColor={textColor}
             />
-            <Text>REPOS DU GUERRIER...</Text>
+            <Text>{button}</Text>
         </View>
     )
 }

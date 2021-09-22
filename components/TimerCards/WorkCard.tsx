@@ -10,12 +10,13 @@ import Button from './Button';
 interface Props {
     concentrationTime: string,
     background: string,
-    textColor: string
+    textColor: string,
+    button: string
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ concentrationTime, background, textColor }: Props) => {
+const WorkCard = ({ concentrationTime, background, textColor, button }: Props) => {
     return (
         <View style={styles.container}>
             <Timer 
@@ -23,7 +24,7 @@ const WorkCard = ({ concentrationTime, background, textColor }: Props) => {
                 background={background}
                 textColor={textColor}
             />
-            <Button text="Stop" />
+            <Button text={button} />
         </View>
     )
 }

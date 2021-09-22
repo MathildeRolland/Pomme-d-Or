@@ -15,6 +15,8 @@ export default function App() {
   const [concentrationTime, setConcentrationTime] = useState('25');
   const [relaxTime, setRelaxTime] = useState('5');
   const [currentHabbit, setCurrentHabbit] = useState('');
+  const [concentrationButton, setConcentrationButton] = useState('Go!');
+  const [relaxButton, setRelaxButton] = useState('Chill!');
 
   return (
     <View style={styles.container}>
@@ -32,6 +34,10 @@ export default function App() {
           relaxTime={relaxTime}
           setConcentrationTime={setConcentrationTime}
           setRelaxTime={setRelaxTime}
+          concentrationButton={concentrationButton}
+          setConcentrationButton={setConcentrationButton}
+          relaxButton={relaxTime}
+          setRelaxButton={setRelaxButton}
         />
         {/* <Options 
           concentrationTime={concentrationTime}
