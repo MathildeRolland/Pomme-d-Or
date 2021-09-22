@@ -7,10 +7,10 @@ import NumericInput from '../components/Options/NumericInput';
 
 // == == == == == == == == == TYPES == == == == == == == == == == //
 interface OptionsProps {
-    concentrationTime: string,
-    setConcentrationTime: React.Dispatch<React.SetStateAction<string>>,
-    relaxTime: string,
-    setRelaxTime: React.Dispatch<React.SetStateAction<string>>,
+    concentrationTime: number,
+    setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
+    relaxTime: number,
+    setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
     currentHabbit: string,
     setCurrentHabbit: React.Dispatch<React.SetStateAction<string>>
 }

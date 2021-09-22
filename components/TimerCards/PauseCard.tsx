@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Colors from '../../vars/colors';
 
 // == COMPONENTS
@@ -8,7 +8,7 @@ import Button from './Button';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
-    relaxTime: string,
+    relaxTime: number,
     background: string,
     textColor: string,
     button: string
@@ -25,7 +25,10 @@ export default function PauseCard({ relaxTime, background, textColor, button }: 
                 background={background}
                 textColor={textColor}
             />
-            <Text>{button}</Text>
+            <Button 
+                text={button}
+                time={relaxTime}
+            />
         </View>
     )
 }

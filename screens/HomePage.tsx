@@ -8,10 +8,10 @@ import PauseCard from '../components/TimerCards/PauseCard';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
-    concentrationTime: string,
-    setConcentrationTime: React.Dispatch<React.SetStateAction<string>>,
-    relaxTime: string,
-    setRelaxTime: React.Dispatch<React.SetStateAction<string>>,
+    concentrationTime: number,
+    setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
+    relaxTime: number,
+    setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
     concentrationButton: string,
     setConcentrationButton: React.Dispatch<React.SetStateAction<string>>,
     relaxButton: string,
@@ -20,11 +20,21 @@ interface Props {
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-export default function HomePage({ concentrationTime, setConcentrationTime, relaxTime, setRelaxTime, concentrationButton, setConcentrationButton, relaxButton, setRelaxButton }: Props) {
+export default function HomePage({
+    concentrationTime,
+    setConcentrationTime,
+    relaxTime,
+    setRelaxTime,
+    concentrationButton,
+    setConcentrationButton,
+    relaxButton,
+    setRelaxButton
+}: Props) {
     return (
         <View style={styles.container}>
             <WorkCard 
                 concentrationTime={concentrationTime}
+                setConcentrationTime={setConcentrationTime}
                 background={Colors.gold}
                 textColor={Colors.darkGrey}
                 button={concentrationButton}

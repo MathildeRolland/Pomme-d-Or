@@ -4,18 +4,24 @@ import Colors from '../../vars/colors';
 
 // == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
-    defaultValue: string,
-    setNewValue: React.Dispatch<React.SetStateAction<string>>
+    defaultValue: number,
+    setNewValue: React.Dispatch<React.SetStateAction<number>>
 }
 
 interface buttonProps {
     text: string,
-    defaultValue: string,
-    setNewValue: React.Dispatch<React.SetStateAction<string>>
+    defaultValue: number,
+    setNewValue: React.Dispatch<React.SetStateAction<number>>
 }
 // == == == == == == == == == == == == == == == == == == == == == //
 
 const NumericInput = ({ defaultValue, setNewValue }: Props) => {
+    const convertToSeconds = (minutes: number): number => {
+        const seconds = minutes * 60;
+        return seconds;
+    }
+
+
     return (
         <View style={styles.timeSetUp}>
             <ChangeTimeButton
@@ -26,10 +32,10 @@ const NumericInput = ({ defaultValue, setNewValue }: Props) => {
             <TextInput 
                 style={styles.input}
                 keyboardType='numeric'
-                defaultValue={defaultValue}
+                defaultValue={defaultValue.toString()}
                 maxLength={3}
                 autoFocus={true}
-                onChangeText={(defaultValue) => setNewValue(defaultValue)}
+                onChangeText={(defaultValue) => setNewValue(convertToSeconds(Number(defaultValue)))}
             />
             <ChangeTimeButton 
                 text="+"
@@ -41,14 +47,14 @@ const NumericInput = ({ defaultValue, setNewValue }: Props) => {
 }
 
 const ChangeTimeButton = ({ text, defaultValue, setNewValue }: buttonProps) => {
-    const addMinute = (currentTime: string) => {
+    const addMinute = (currentTime: number) => {
         const newMinute = Number(currentTime) + 1;
-        return newMinute.toString();
+        return newMinute;
     }
 
-    const removeMinute = (currentTime:string) => {
+    const removeMinute = (currentTime:number) => {
         const newMinute = Number(currentTime) - 1;
-        return newMinute.toString();
+        return newMinute;
     }
 
     return (

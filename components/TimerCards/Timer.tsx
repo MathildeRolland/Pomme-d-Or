@@ -4,7 +4,7 @@ import { convertToTimeStringFormat } from '../../utils/timers';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
-    time: string,
+    time: number,
     background: string,
     textColor: string
 }

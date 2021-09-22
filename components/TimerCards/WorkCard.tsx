@@ -8,7 +8,8 @@ import Button from './Button';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
-    concentrationTime: string,
+    concentrationTime: number,
+    setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
     background: string,
     textColor: string,
     button: string
@@ -16,7 +17,7 @@ interface Props {
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ concentrationTime, background, textColor, button }: Props) => {
+const WorkCard = ({ concentrationTime, setConcentrationTime, background, textColor, button }: Props) => {
     return (
         <View style={styles.container}>
             <Timer 
@@ -24,7 +25,11 @@ const WorkCard = ({ concentrationTime, background, textColor, button }: Props) =
                 background={background}
                 textColor={textColor}
             />
-            <Button text={button} />
+            <Button
+                text={button}
+                time={concentrationTime}
+                setTime={setConcentrationTime}
+            />
         </View>
     )
 }
