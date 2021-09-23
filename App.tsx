@@ -12,7 +12,7 @@ import Options from './screens/Options';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [concentrationTime, setConcentrationTime] = useState(4200);
+  const [concentrationTime, setConcentrationTime] = useState(15);
   const [relaxTime, setRelaxTime] = useState(300);
   const [currentHabbit, setCurrentHabbit] = useState('');
   const [concentrationButton, setConcentrationButton] = useState('Go!');

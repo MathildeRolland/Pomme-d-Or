@@ -9,6 +9,7 @@ import Button from './Button';
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
     relaxTime: number,
+    setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
     background: string,
     textColor: string,
     button: string
@@ -17,7 +18,7 @@ interface Props {
 
 
 
-export default function PauseCard({ relaxTime, background, textColor, button }: Props) {
+export default function PauseCard({ relaxTime, setRelaxTime, background, textColor, button }: Props) {
     return (
         <View style={styles.container}>
             <Timer 
@@ -28,6 +29,7 @@ export default function PauseCard({ relaxTime, background, textColor, button }: 
             <Button 
                 text={button}
                 time={relaxTime}
+                setTime={setRelaxTime}
             />
         </View>
     )
