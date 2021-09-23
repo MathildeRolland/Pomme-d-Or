@@ -12,13 +12,15 @@ interface Props {
     setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
     background: string,
     textColor: string,
-    button: string
+    button: string,
+    isRelaxOn: boolean,
+    setIsRelaxOn: React.Dispatch<React.SetStateAction<boolean>>
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
 
-export default function PauseCard({ relaxTime, setRelaxTime, background, textColor, button }: Props) {
+export default function PauseCard({ relaxTime, setRelaxTime, background, textColor, button, isRelaxOn, setIsRelaxOn }: Props) {
     return (
         <View style={styles.container}>
             <Timer 
@@ -30,6 +32,10 @@ export default function PauseCard({ relaxTime, setRelaxTime, background, textCol
                 text={button}
                 time={relaxTime}
                 setTime={setRelaxTime}
+                background={isRelaxOn ? Colors.gold : Colors.darkGrey}
+                textBorder={isRelaxOn ? Colors.darkGrey : Colors.gold}
+                isModeOn={isRelaxOn}
+                toggleMode={setIsRelaxOn}
             />
         </View>
     )

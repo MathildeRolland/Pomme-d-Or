@@ -6,20 +6,29 @@ import { timeCountdown } from '../../utils/timers';
 export type Props = {
     text: string,
     time: number,
-    setTime: React.Dispatch<React.SetStateAction<number>>
+    setTime: React.Dispatch<React.SetStateAction<number>>,
+    background: string,
+    textBorder: string,
+    toggleMode: React.Dispatch<React.SetStateAction<boolean>>,
+    isModeOn: boolean
 };
 
-const Button: React.FC<Props> = ({ text, time, setTime }: Props) => {
+const Button: React.FC<Props> = ({ text, time, setTime, background, textBorder, toggleMode, isModeOn }: Props) => {
     return (
-        <Pressable style={styles.button} onPress={() => timeCountdown(time, setTime)}>
-            <Text style={styles.buttonTitle}>{text}</Text>
+        <Pressable
+            style={[styles.button, {backgroundColor: background, borderColor: textBorder}]}
+            onPress={() => {
+            toggleMode(!isModeOn)
+            timeCountdown(time, setTime)
+            }}
+        >
+            <Text style={[styles.buttonTitle, {color: textBorder}]}>{text}</Text>
         </Pressable> 
     )
 }
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'transparent',
         borderWidth: 1,
         borderColor: Colors.pink,
         borderRadius: 5,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Colors from '../vars/colors';
 
@@ -19,7 +19,6 @@ interface Props {
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
-
 export default function HomePage({
     concentrationTime,
     setConcentrationTime,
@@ -30,21 +29,29 @@ export default function HomePage({
     relaxButton,
     setRelaxButton
 }: Props) {
+    const [isConcentrationOn, setIsConcentrationOn] = useState(false);
+    const [isRelaxOn, setIsRelaxOn] = useState(false);
+
     return (
         <View style={styles.container}>
-            <WorkCard 
+            {/* <WorkCard 
                 concentrationTime={concentrationTime}
                 setConcentrationTime={setConcentrationTime}
                 background={Colors.gold}
                 textColor={Colors.darkGrey}
                 button={concentrationButton}
-            />
-            {/* <PauseCard 
+                isConcentrationOn={isConcentrationOn}
+                setIsConcentrationOn={setIsConcentrationOn}
+            /> */}
+            <PauseCard 
                 relaxTime={relaxTime}
+                setRelaxTime={setRelaxTime}
                 background={Colors.darkGrey}
                 textColor={Colors.gold}
                 button={relaxButton}
-            /> */}
+                isRelaxOn={isRelaxOn}
+                setIsRelaxOn={setIsRelaxOn}
+            />
         </View>
     )
 }

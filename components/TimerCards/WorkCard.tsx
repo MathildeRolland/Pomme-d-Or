@@ -12,12 +12,14 @@ interface Props {
     setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
     background: string,
     textColor: string,
-    button: string
+    button: string,
+    isConcentrationOn: boolean,
+    setIsConcentrationOn: React.Dispatch<React.SetStateAction<boolean>>
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ concentrationTime, setConcentrationTime, background, textColor, button }: Props) => {
+const WorkCard = ({ concentrationTime, setConcentrationTime, background, textColor, button, isConcentrationOn, setIsConcentrationOn }: Props) => {
     return (
         <View style={styles.container}>
             <Timer 
@@ -29,6 +31,10 @@ const WorkCard = ({ concentrationTime, setConcentrationTime, background, textCol
                 text={button}
                 time={concentrationTime}
                 setTime={setConcentrationTime}
+                background={isConcentrationOn ? Colors.darkGrey : Colors.pink}
+                textBorder={isConcentrationOn ? Colors.pink : Colors.darkGrey}
+                isModeOn={isConcentrationOn}
+                toggleMode={setIsConcentrationOn}
             />
         </View>
     )
