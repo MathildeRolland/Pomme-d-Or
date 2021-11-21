@@ -2,14 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Colors from './vars/colors';
+import Colors from './assets/vars/colors';
 
 // == COMPONENTS
-import Header from './components/Menu/Header';
-import LandingPage from './screens/LandingPage';
-import HomePage from './screens/HomePage';
-import Options from './screens/Options';
-import Footer from './components/Footer';
+import Header from './src/components/Menu/Header';
+import LandingPage from './src/screens/LandingPage';
+import HomePage from './src/screens/HomePage';
+import Options from './src/screens/Options';
+import Footer from './src/components/Footer';
 
 export default function App() {
   const [concentrationTime, setConcentrationTime] = useState(4700);

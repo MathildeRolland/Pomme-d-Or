@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
-import Colors from '../../vars/colors';
+import Colors from '../../../assets/vars/colors';
 
 // == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {

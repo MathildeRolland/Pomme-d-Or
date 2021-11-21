@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Colors from '../vars/colors'
+import Colors from '../../assets/vars/colors'
 
 export default function LandingPage() {
     return (

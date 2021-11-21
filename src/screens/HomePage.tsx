@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Colors from '../vars/colors';
+import Colors from '../../assets/vars/colors';
 
 // == COMPONENTS
 import WorkCard from '../components/TimerCards/WorkCard';
@@ -34,7 +34,7 @@ export default function HomePage({
 
     return (
         <View style={styles.container}>
-            {/* <WorkCard 
+            <WorkCard 
                 concentrationTime={concentrationTime}
                 setConcentrationTime={setConcentrationTime}
                 background={Colors.gold}
@@ -42,8 +42,8 @@ export default function HomePage({
                 button={concentrationButton}
                 isConcentrationOn={isConcentrationOn}
                 setIsConcentrationOn={setIsConcentrationOn}
-            /> */}
-            <PauseCard 
+            />
+            {/* <PauseCard 
                 relaxTime={relaxTime}
                 setRelaxTime={setRelaxTime}
                 background={Colors.darkGrey}
@@ -51,7 +51,7 @@ export default function HomePage({
                 button={relaxButton}
                 isRelaxOn={isRelaxOn}
                 setIsRelaxOn={setIsRelaxOn}
-            />
+            /> */}
         </View>
     )
 }

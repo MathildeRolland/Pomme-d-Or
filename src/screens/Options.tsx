@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import Colors from '../vars/colors';
+import Colors from '../../assets/vars/colors';
 
 // == COMPONENTS
 import NumericInput from '../components/Options/NumericInput';

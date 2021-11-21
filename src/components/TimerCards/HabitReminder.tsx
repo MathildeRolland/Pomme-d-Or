@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Colors from '../../vars/colors';
+import Colors from '../../../assets/vars/colors';
 
 export type Props = {
     habit: string,

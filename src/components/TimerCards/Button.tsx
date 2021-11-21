@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable, Text } from 'react-native';
-import Colors from '../../vars/colors';
+import Colors from '../../../assets/vars/colors';
 import { timeCountdown } from '../../utils/timers';
 
 export type Props = {
@@ -19,7 +19,7 @@ const Button: React.FC<Props> = ({ text, time, setTime, background, textBorder, 
             style={[styles.button, {backgroundColor: background, borderColor: textBorder}]}
             onPress={() => {
             toggleMode(!isModeOn)
-            timeCountdown(time, setTime)
+            timeCountdown(time, setTime, isModeOn)
             }}
         >
             <Text style={[styles.buttonTitle, {color: textBorder}]}>{text}</Text>
