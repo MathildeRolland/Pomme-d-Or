@@ -5,16 +5,14 @@ import { convertToTimeStringFormat } from '../../utils/timers';
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
     time: number,
-    background: string,
-    textColor: string
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const Timer = ({ time, background, textColor }: Props) => {
+const Timer = ({ time }: Props) => {
     return (
-        <View style={[styles.container, {backgroundColor: background}]}>
-            <Text style={[styles.text, {color: textColor}]}>{convertToTimeStringFormat(time)}</Text>
+        <View style={styles.container}>
+            <Text style={styles.text}>{convertToTimeStringFormat(time)}</Text>
         </View>
     )
 }
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 50,
-        color: "#373737",
+        color: "#fff",
     }
 });
 

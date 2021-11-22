@@ -9,19 +9,15 @@ import Button from './Button';
 import { RootState } from '../../redux';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
-interface Props {
-    concentrationTime: number,
-    setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
-    background: string,
-    textColor: string,
-    button: string,
-    isConcentrationOn: boolean,
-    setIsConcentrationOn: React.Dispatch<React.SetStateAction<boolean>>
-}
+// interface Props {
+//     background: string,
+//     textColor: string,
+//     button: string,
+// }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ setConcentrationTime, background, textColor, button, isConcentrationOn, setIsConcentrationOn }: Props) => {
+const WorkCard = () => {
     const { concentrationTime } = useSelector((state: RootState) => state.timer);
 
 
@@ -30,17 +26,9 @@ const WorkCard = ({ setConcentrationTime, background, textColor, button, isConce
         <View style={styles.container}>
             <Timer 
                 time={concentrationTime}
-                background={background}
-                textColor={textColor}
             />
             <Button
-                text={button}
                 time={concentrationTime}
-                setTime={setConcentrationTime}
-                background={isConcentrationOn ? Colors.darkGrey : Colors.pink}
-                textBorder={isConcentrationOn ? Colors.pink : Colors.darkGrey}
-                isModeOn={isConcentrationOn}
-                toggleMode={setIsConcentrationOn}
             />
         </View>
     )

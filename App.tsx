@@ -16,11 +16,6 @@ import Options from './src/screens/Options';
 import Footer from './src/components/Footer';
 
 export default function App() {
-  const [concentrationTime, setConcentrationTime] = useState(4700);
-  const [relaxTime, setRelaxTime] = useState(15);
-  const [currentHabbit, setCurrentHabbit] = useState('');
-  const [concentrationButton, setConcentrationButton] = useState('Go!');
-  const [relaxButton, setRelaxButton] = useState('Chill!');
 
   return (
     <Provider store={store}>
@@ -34,16 +29,7 @@ export default function App() {
         >
           <Header />
           {/* <LandingPage /> */}
-          <HomePage 
-            concentrationTime={concentrationTime}
-            relaxTime={relaxTime}
-            setConcentrationTime={setConcentrationTime}
-            setRelaxTime={setRelaxTime}
-            concentrationButton={concentrationButton}
-            setConcentrationButton={setConcentrationButton}
-            relaxButton={relaxButton}
-            setRelaxButton={setRelaxButton}
-          />
+          <HomePage />
           {/* <Options 
             concentrationTime={concentrationTime}
             relaxTime={relaxTime}

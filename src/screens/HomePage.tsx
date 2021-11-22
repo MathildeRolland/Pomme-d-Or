@@ -19,30 +19,11 @@ interface Props {
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
-export default function HomePage({
-    concentrationTime,
-    setConcentrationTime,
-    relaxTime,
-    setRelaxTime,
-    concentrationButton,
-    setConcentrationButton,
-    relaxButton,
-    setRelaxButton
-}: Props) {
-    const [isConcentrationOn, setIsConcentrationOn] = useState(false);
-    const [isRelaxOn, setIsRelaxOn] = useState(false);
+export default function HomePage() {
 
     return (
         <View style={styles.container}>
-            <WorkCard 
-                concentrationTime={concentrationTime}
-                setConcentrationTime={setConcentrationTime}
-                background={Colors.gold}
-                textColor={Colors.darkGrey}
-                button={concentrationButton}
-                isConcentrationOn={isConcentrationOn}
-                setIsConcentrationOn={setIsConcentrationOn}
-            />
+            <WorkCard />
             {/* <PauseCard 
                 relaxTime={relaxTime}
                 setRelaxTime={setRelaxTime}
