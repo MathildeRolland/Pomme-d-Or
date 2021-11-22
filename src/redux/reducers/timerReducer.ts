@@ -7,7 +7,7 @@ interface TimerState {
 
 
 const initialState: TimerState = {
-    concentrationTime: 1800,
+    concentrationTime: 10,
     relaxTime: 15,
 };
 

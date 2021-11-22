@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Pressable, BackHandler } from 'react-native';
 import Colors from '../../../assets/vars/colors'
 
 // == COMPONENTS
 import Timer from './Timer';
 import Button from './Button';
+import { RootState } from '../../redux';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
@@ -19,7 +21,11 @@ interface Props {
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 
-const WorkCard = ({ concentrationTime, setConcentrationTime, background, textColor, button, isConcentrationOn, setIsConcentrationOn }: Props) => {
+const WorkCard = ({ setConcentrationTime, background, textColor, button, isConcentrationOn, setIsConcentrationOn }: Props) => {
+    const { concentrationTime } = useSelector((state: RootState) => state.timer);
+
+
+
     return (
         <View style={styles.container}>
             <Timer 

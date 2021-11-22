@@ -1,7 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { SetNewConcentrationTime } from '../../redux/actions';
 import { StyleSheet, Pressable, Text } from 'react-native';
 import Colors from '../../../assets/vars/colors';
-import { timeCountdown } from '../../utils/timers';
 
 export type Props = {
     text: string,
@@ -14,12 +15,27 @@ export type Props = {
 };
 
 const Button: React.FC<Props> = ({ text, time, setTime, background, textBorder, toggleMode, isModeOn }: Props) => {
+    const dispatch = useDispatch();
+
+    // Function to start countdown
+    const timeCountdown = (seconds: number, setNewTime: React.Dispatch<React.SetStateAction<number>>, isModeOn: boolean): void => {
+        // Set interval every second => return formated new time string
+        const countdown = setInterval(() => {
+            seconds = seconds - 1;
+            // setNewTime(seconds);
+            dispatch(SetNewConcentrationTime(seconds));
+            if(seconds === 0) {
+                clearInterval(countdown);
+            }
+        }, 1000);
+    }
+    
     return (
         <Pressable
             style={[styles.button, {backgroundColor: background, borderColor: textBorder}]}
             onPress={() => {
-            toggleMode(!isModeOn)
-            timeCountdown(time, setTime, isModeOn)
+                toggleMode(!isModeOn)
+                timeCountdown(time, setTime, isModeOn)
             }}
         >
             <Text style={[styles.buttonTitle, {color: textBorder}]}>{text}</Text>
