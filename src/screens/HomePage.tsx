@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import Colors from '../../assets/vars/colors';
 
 // == COMPONENTS
 import WorkCard from '../components/TimerCards/WorkCard';
 import PauseCard from '../components/TimerCards/PauseCard';
+import { RootState } from '../redux';
+
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
@@ -20,6 +23,7 @@ interface Props {
 // == == == == == == == == == == == == == == == == == == == == == == //
 
 export default function HomePage() {
+    const { concentrationTime } = useSelector((state: RootState) => state.timer);
 
     return (
         <View style={styles.container}>
@@ -39,8 +43,8 @@ export default function HomePage() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 6,
-        width: '85%',
-        margin: 115,
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
     },
 })

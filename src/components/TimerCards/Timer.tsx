@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { convertToTimeStringFormat } from '../../utils/timers';
+import Colors from '../../../assets/vars/colors';
 
 // == == == == == == == == == == TYPES == == == == == == == == == == //
 interface Props {
@@ -21,10 +22,12 @@ const styles = StyleSheet.create({
     container: {
         width: 230,
         height: 230,
-        borderRadius: 115,
+        backgroundColor: Colors.gold,
+        borderRadius: 500,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 30
+        marginVertical: 30,
+        alignSelf: 'center'
     },
     text: {
         fontSize: 50,
