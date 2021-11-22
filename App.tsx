@@ -4,6 +4,10 @@ import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from './assets/vars/colors';
 
+// REDUX
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
+
 // == COMPONENTS
 import Header from './src/components/Menu/Header';
 import LandingPage from './src/screens/LandingPage';
@@ -19,37 +23,39 @@ export default function App() {
   const [relaxButton, setRelaxButton] = useState('Chill!');
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" backgroundColor="#F7B53B" />
-      <LinearGradient
-                style={styles.container}
-                colors={[Colors.light, Colors.light, Colors.gold]}
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-      >
-        <Header />
-        {/* <LandingPage /> */}
-        <HomePage 
-          concentrationTime={concentrationTime}
-          relaxTime={relaxTime}
-          setConcentrationTime={setConcentrationTime}
-          setRelaxTime={setRelaxTime}
-          concentrationButton={concentrationButton}
-          setConcentrationButton={setConcentrationButton}
-          relaxButton={relaxButton}
-          setRelaxButton={setRelaxButton}
-        />
-        {/* <Options 
-          concentrationTime={concentrationTime}
-          relaxTime={relaxTime}
-          setConcentrationTime={setConcentrationTime}
-          setRelaxTime={setRelaxTime}
-          currentHabbit={currentHabbit}
-          setCurrentHabbit={setCurrentHabbit}
-        /> */}
-        <Footer />
-      </LinearGradient>
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <StatusBar style="auto" backgroundColor="#F7B53B" />
+        <LinearGradient
+                  style={styles.container}
+                  colors={[Colors.light, Colors.light, Colors.gold]}
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 1}}
+        >
+          <Header />
+          {/* <LandingPage /> */}
+          <HomePage 
+            concentrationTime={concentrationTime}
+            relaxTime={relaxTime}
+            setConcentrationTime={setConcentrationTime}
+            setRelaxTime={setRelaxTime}
+            concentrationButton={concentrationButton}
+            setConcentrationButton={setConcentrationButton}
+            relaxButton={relaxButton}
+            setRelaxButton={setRelaxButton}
+          />
+          {/* <Options 
+            concentrationTime={concentrationTime}
+            relaxTime={relaxTime}
+            setConcentrationTime={setConcentrationTime}
+            setRelaxTime={setRelaxTime}
+            currentHabbit={currentHabbit}
+            setCurrentHabbit={setCurrentHabbit}
+          /> */}
+          <Footer />
+        </LinearGradient>
+      </View>
+    </Provider>
   );
 }
 
