@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dimensions, StyleSheet, View, Text, Pressable, BackHandler } from 'react-native';
+import { Dimensions, StyleSheet, View, Text } from 'react-native';
 import Colors from '../../../assets/vars/colors'
-import { setNewConcentrationTime } from '../../redux/actions';
+import { setNewConcentrationTime, setNewRelaxTime } from '../../redux/actions';
 import { RootState } from '../../redux';
 
 // == RN PAPER
@@ -26,14 +26,16 @@ const WorkCard = () => {
         const countdown = setInterval(() => {
             seconds = seconds - 1;
             dispatch(setNewConcentrationTime(seconds));
-            if(seconds === 0 || isTimerOn.current === false) {
+            if(isTimerOn.current === false) {
                 clearInterval(countdown);
+            } else if(seconds === 0) {
+                clearInterval(countdown);
+                dispatch(setNewRelaxTime(5))
             }
         }, 1000);
-
-        return countdown;
     }
 
+    // Function handle button press
     const handlePress = () => {
         if(isTimerOn.current) {
             timeCountdown(concentrationTime);
@@ -43,37 +45,46 @@ const WorkCard = () => {
         }
     }
 
-
+    // Component
     return (
-        <View style={styles.container}>
-            <Card style={styles.timer}>
-                <Timer 
-                    time={concentrationTime}
-                    mode="concentration"
-                />
-            </Card>
-            <Card.Actions style={styles.buttonContainer}>
-            <Button
-                mode="contained"
-                color={Colors.darkGrey}
-                style={styles.button}
-                onPress={() => {
-                    isTimerOn.current = !isTimerOn.current;
-                    handlePress();
-                }}
-            >
-             {buttonText}
-            </Button> 
-            </Card.Actions>
-        </View>
+        <>
+            <Text style={styles.title}>Time to Focus</Text>
+            <View style={styles.container}>
+                <Card style={styles.timer}>
+                    <Timer 
+                        time={concentrationTime}
+                        mode="concentration"
+                    />
+                </Card>
+                <Card.Actions style={styles.buttonContainer}>
+                <Button
+                    mode="contained"
+                    color={Colors.darkGrey}
+                    style={styles.button}
+                    onPress={() => {
+                        isTimerOn.current = !isTimerOn.current;
+                        handlePress();
+                    }}
+                >
+                {buttonText}
+                </Button> 
+                </Card.Actions>
+            </View>
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 70,
+        marginTop: 30,
+        marginBottom: 50,
         width: '80%',
         alignSelf: 'center',
+    },
+    title: {
+        fontSize: 20,
+        alignSelf: 'center',
+        textTransform: 'uppercase'
     },
     timer: {
         borderTopLeftRadius: 15,

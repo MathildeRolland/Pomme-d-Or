@@ -27,8 +27,9 @@ export default function HomePage() {
 
     return (
         <View style={styles.container}>
-            {/* <WorkCard /> */}
-            <PauseCard />
+            { concentrationTime !== 0 && <WorkCard /> }
+            { concentrationTime === 0 && <PauseCard /> }
+           
         </View>
     )
 }

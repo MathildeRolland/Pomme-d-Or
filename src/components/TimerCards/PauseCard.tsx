@@ -10,7 +10,7 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
-import { setNewRelaxTime } from '../../redux/actions';
+import { setNewRelaxTime, setNewConcentrationTime } from '../../redux/actions';
 
 
 
@@ -27,8 +27,12 @@ export default function PauseCard() {
         const countdown = setInterval(() => {
             seconds = seconds - 1;
             dispatch(setNewRelaxTime(seconds));
-            if(seconds === 0 || isTimerOn.current === false) {
+
+            if(isTimerOn.current === false) {
                 clearInterval(countdown);
+            } else if(seconds === 0) {
+                clearInterval(countdown);
+                dispatch(setNewConcentrationTime(15));
             }
         }, 1000);
 
@@ -46,27 +50,30 @@ export default function PauseCard() {
     }
     
     return (
-        <View style={styles.container}>
-            <Card style={styles.timer}>
-                <Timer 
-                    time={relaxTime}
-                    mode = "relax"
-                />
-            </Card>
-            <Card.Actions style={styles.buttonContainer}>
-            <Button
-                mode="contained"
-                color={Colors.gold}
-                style={styles.button}
-                onPress={() => {
-                    isTimerOn.current = !isTimerOn.current;
-                    handlePress();
-                }}
-            >
-                {buttonText}
-            </Button> 
-            </Card.Actions>
-        </View>
+        <>
+            <Text style={styles.title}>A few minutes to relax</Text>
+            <View style={styles.container}>
+                <Card style={styles.timer}>
+                    <Timer 
+                        time={relaxTime}
+                        mode = "relax"
+                    />
+                </Card>
+                <Card.Actions style={styles.buttonContainer}>
+                <Button
+                    mode="contained"
+                    color={Colors.gold}
+                    style={styles.button}
+                    onPress={() => {
+                        isTimerOn.current = !isTimerOn.current;
+                        handlePress();
+                    }}
+                >
+                    {buttonText}
+                </Button> 
+                </Card.Actions>
+            </View>
+        </>
     )
 }
 
@@ -75,6 +82,11 @@ const styles = StyleSheet.create({
         marginVertical: 70,
         width: '80%',
         alignSelf: 'center',
+    },
+    title: {
+        fontSize: 20,
+        alignSelf: 'center',
+        textTransform: 'uppercase'
     },
     timer: {
         borderTopLeftRadius: 15,
