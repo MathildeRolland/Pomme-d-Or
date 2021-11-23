@@ -1,52 +1,97 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text } from 'react-native';
 import Colors from '../../../assets/vars/colors';
 
+// == RN PAPER
+import { Card, Button } from 'react-native-paper';
+
 // == COMPONENTS
 import Timer from './Timer';
-import Button from './Button';
+import { RootState } from '../../redux';
 
-// == == == == == == == == == == TYPES == == == == == == == == == == //
-interface Props {
-    relaxTime: number,
-    setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
-    background: string,
-    textColor: string,
-    button: string,
-    isRelaxOn: boolean,
-    setIsRelaxOn: React.Dispatch<React.SetStateAction<boolean>>
-}
-// == == == == == == == == == == == == == == == == == == == == == == //
+import { setNewRelaxTime } from '../../redux/actions';
 
 
 
-export default function PauseCard({ relaxTime, setRelaxTime, background, textColor, button, isRelaxOn, setIsRelaxOn }: Props) {
+export default function PauseCard() {
+    const { relaxTime } = useSelector((state: RootState) => state.timer);
+    const dispatch = useDispatch();
+    const isTimerOn = useRef(false);
+
+    const [ buttonText, setButtonText ] = useState('Chill :D');
+
+     // Function to start countdown
+     const timeCountdown = (seconds: number) => {
+        // Set interval every second => return formated new time string
+        const countdown = setInterval(() => {
+            seconds = seconds - 1;
+            dispatch(setNewRelaxTime(seconds));
+            if(seconds === 0 || isTimerOn.current === false) {
+                clearInterval(countdown);
+            }
+        }, 1000);
+
+        return countdown;
+    }
+
+    const handlePress = () => {
+        console.log('relax time' , relaxTime);
+        if(isTimerOn.current) {
+            timeCountdown(relaxTime);
+            setButtonText('Back To Work?');
+        } else {
+            setButtonText('Chill')
+        }
+    }
+    
     return (
         <View style={styles.container}>
-            <Timer 
-                time={relaxTime}
-                background={background}
-                textColor={textColor}
-            />
-            <Button 
-                text={button}
-                time={relaxTime}
-                setTime={setRelaxTime}
-                background={isRelaxOn ? Colors.gold : Colors.darkGrey}
-                textBorder={isRelaxOn ? Colors.darkGrey : Colors.gold}
-                isModeOn={isRelaxOn}
-                toggleMode={setIsRelaxOn}
-            />
+            <Card style={styles.timer}>
+                <Timer 
+                    time={relaxTime}
+                    mode = "relax"
+                />
+            </Card>
+            <Card.Actions style={styles.buttonContainer}>
+            <Button
+                mode="contained"
+                color={Colors.gold}
+                style={styles.button}
+                onPress={() => {
+                    isTimerOn.current = !isTimerOn.current;
+                    handlePress();
+                }}
+            >
+                {buttonText}
+            </Button> 
+            </Card.Actions>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
+        marginVertical: 70,
+        width: '80%',
+        alignSelf: 'center',
+    },
+    timer: {
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        backgroundColor: Colors.darkGrey,
+    },
+    buttonContainer: {
+        backgroundColor: "#4E4E4E",
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        paddingVertical: 20,
         justifyContent: 'center',
-        backgroundColor: Colors.gold,
-        borderRadius: 15,
+    },
+    button: {
+        width: '40%',
+        borderRadius: 5,
     },
 });

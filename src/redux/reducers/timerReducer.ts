@@ -7,7 +7,7 @@ interface TimerState {
 
 
 const initialState: TimerState = {
-    concentrationTime: 10,
+    concentrationTime: 60,
     relaxTime: 15,
 };
 
@@ -21,7 +21,7 @@ export const timerReducer = (state: TimerState = initialState, action: TimerActi
         case SET_NEW_RELAX_TIME:
             return {
                 ...state,
-                relaxtTime: action.payload
+                relaxTime: action.payload
             }
         default:
             return state;

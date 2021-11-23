@@ -27,16 +27,8 @@ export default function HomePage() {
 
     return (
         <View style={styles.container}>
-            <WorkCard />
-            {/* <PauseCard 
-                relaxTime={relaxTime}
-                setRelaxTime={setRelaxTime}
-                background={Colors.darkGrey}
-                textColor={Colors.gold}
-                button={relaxButton}
-                isRelaxOn={isRelaxOn}
-                setIsRelaxOn={setIsRelaxOn}
-            /> */}
+            {/* <WorkCard /> */}
+            <PauseCard />
         </View>
     )
 }

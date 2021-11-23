@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dimensions, StyleSheet, View, Text, Pressable, BackHandler } from 'react-native';
 import Colors from '../../../assets/vars/colors'
-import { SetNewConcentrationTime } from '../../redux/actions';
+import { setNewConcentrationTime } from '../../redux/actions';
 import { RootState } from '../../redux';
 
 // == RN PAPER
@@ -10,16 +10,6 @@ import { Card, Button } from 'react-native-paper';
 
 // == COMPONENTS
 import Timer from './Timer';
-
-
-// const { height } = Dimensions.get('window').height;
-// == == == == == == == == == == TYPES == == == == == == == == == == //
-// interface Props {
-//     background: string,
-//     textColor: string,
-//     button: string,
-// }
-// == == == == == == == == == == == == == == == == == == == == == == //
 
 
 const WorkCard = () => {
@@ -35,7 +25,7 @@ const WorkCard = () => {
         // Set interval every second => return formated new time string
         const countdown = setInterval(() => {
             seconds = seconds - 1;
-            dispatch(SetNewConcentrationTime(seconds));
+            dispatch(setNewConcentrationTime(seconds));
             if(seconds === 0 || isTimerOn.current === false) {
                 clearInterval(countdown);
             }
@@ -59,6 +49,7 @@ const WorkCard = () => {
             <Card style={styles.timer}>
                 <Timer 
                     time={concentrationTime}
+                    mode="concentration"
                 />
             </Card>
             <Card.Actions style={styles.buttonContainer}>
