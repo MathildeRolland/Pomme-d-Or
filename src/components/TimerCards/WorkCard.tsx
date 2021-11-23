@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dimensions, StyleSheet, View, Text, Pressable, BackHandler } from 'react-native';
 import Colors from '../../../assets/vars/colors'
@@ -26,17 +26,31 @@ const WorkCard = () => {
     const { concentrationTime } = useSelector((state: RootState) => state.timer);
     const dispatch = useDispatch();
 
+    const [ time, setTime ] = useState(concentrationTime);
+    const isTimerOn = useRef(false);
+    const [ buttonText, setButtonText ] = useState("Start");
+
     // Function to start countdown
-    const timeCountdown = (seconds: number): void => {
+    const timeCountdown = (seconds: number) => {
         // Set interval every second => return formated new time string
         const countdown = setInterval(() => {
             seconds = seconds - 1;
-            // setNewTime(seconds);
             dispatch(SetNewConcentrationTime(seconds));
-            if(seconds === 0) {
+            if(seconds === 0 || isTimerOn.current === false) {
                 clearInterval(countdown);
             }
         }, 1000);
+
+        return countdown;
+    }
+
+    const handlePress = () => {
+        if(isTimerOn.current) {
+            timeCountdown(concentrationTime);
+            setButtonText('Stop?');
+        } else {
+            setButtonText('Start');
+        }
     }
 
 
@@ -53,10 +67,11 @@ const WorkCard = () => {
                 color={Colors.darkGrey}
                 style={styles.button}
                 onPress={() => {
-                    timeCountdown(concentrationTime);
+                    isTimerOn.current = !isTimerOn.current;
+                    handlePress();
                 }}
             >
-             {concentrationTime === 0 ? "Chill!" : "Start"}
+             {buttonText}
             </Button> 
             </Card.Actions>
         </View>
