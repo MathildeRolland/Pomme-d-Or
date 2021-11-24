@@ -15,7 +15,7 @@ import { setNewRelaxTime, setNewConcentrationTime } from '../../redux/actions';
 
 
 export default function PauseCard() {
-    const { relaxTime } = useSelector((state: RootState) => state.timer);
+    const { relaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const dispatch = useDispatch();
     const isTimerOn = useRef(false);
 
@@ -32,7 +32,7 @@ export default function PauseCard() {
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
-                dispatch(setNewConcentrationTime(15));
+                dispatch(setNewConcentrationTime(initConcentrationTime));
             }
         }, 1000);
 

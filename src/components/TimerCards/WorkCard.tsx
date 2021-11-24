@@ -13,7 +13,7 @@ import Timer from './Timer';
 
 
 const WorkCard = () => {
-    const { concentrationTime } = useSelector((state: RootState) => state.timer);
+    const { concentrationTime, initRelaxTime } = useSelector((state: RootState) => state.timer);
     const dispatch = useDispatch();
 
     const [ time, setTime ] = useState(concentrationTime);
@@ -30,7 +30,7 @@ const WorkCard = () => {
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
-                dispatch(setNewRelaxTime(5))
+                dispatch(setNewRelaxTime(initRelaxTime))
             }
         }, 1000);
     }

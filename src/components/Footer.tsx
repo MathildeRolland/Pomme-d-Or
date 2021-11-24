@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 10,
         textAlign: 'center',
+        position: 'absolute',
+        bottom: 0
     },
     text: {
         fontSize: 12,

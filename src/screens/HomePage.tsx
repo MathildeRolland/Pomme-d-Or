@@ -22,14 +22,13 @@ interface Props {
 }
 // == == == == == == == == == == == == == == == == == == == == == == //
 
-export default function HomePage() {
+export default function HomePage({ navigation }) {
     const { concentrationTime } = useSelector((state: RootState) => state.timer);
 
     return (
         <View style={styles.container}>
             { concentrationTime !== 0 && <WorkCard /> }
             { concentrationTime === 0 && <PauseCard /> }
-           
         </View>
     )
 }
