@@ -53,7 +53,7 @@ export default function LandingPage({ navigation }) {
         <View style={styles.initTime}>
           <Text style={styles.timeTitle}>Pause:</Text>
           <NumericInput
-            onChange={value => setInitRelax(value)} 
+            onChange={value => setInitRelax(value*60)} 
             step={1}
             borderColor={Colors.grey}
             totalWidth={110}
@@ -71,10 +71,10 @@ export default function LandingPage({ navigation }) {
           color={Colors.gold}
           style={{marginTop: 15, marginBottom: 10, width: '40%', alignSelf: 'center'}}
           onPress={() => {
-            dispatch(initConcentrationTime(initConcentration));
-            dispatch(initRelaxTime(initRelax));
-            dispatch(setNewConcentrationTime(initConcentration));
-            dispatch(setNewRelaxTime(initRelax));
+            dispatch(initConcentrationTime(initConcentration*60));
+            dispatch(initRelaxTime(initRelax*60));
+            dispatch(setNewConcentrationTime(initConcentration*60));
+            dispatch(setNewRelaxTime(initRelax*60));
             navigation.navigate('HomePage');
           }}
         >
