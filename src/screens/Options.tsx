@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Colors from '../../assets/vars/colors';
+import NumericInput from 'react-native-numeric-input';
+import { initConcentrationTime, initRelaxTime, setNewConcentrationTime, setNewRelaxTime } from '../redux/actions';
 
-// == COMPONENTS
-import NumericInput from '../components/Options/NumericInput';
 
 // == == == == == == == == == TYPES == == == == == == == == == == //
 interface OptionsProps {
@@ -17,31 +18,48 @@ interface OptionsProps {
 // == == == == == == == == == == == == == == == == == == == == == //
 
 
-const Options: React.FC<OptionsProps> = ({ 
-    concentrationTime,
-    relaxTime,
-    setConcentrationTime,
-    setRelaxTime,
-    currentHabbit,
-    setCurrentHabbit
-}) => {
+const Options: React.FC<OptionsProps> = () => {
+    const dispatch = useDispatch();
+    const [ initConcentration, setInitConcentration ] = useState<number | null>(0);
+    const [ initRelax, setInitRelax ] = useState<number | null>(0);
+    const [ habbit, setHabbit ] = useState("");
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Options</Text>
             <View>
                 <View style={styles.fieldset}>
                     <Text style={styles.label}>Concentration (min):</Text>
-                    <NumericInput 
-                        defaultValue={concentrationTime}
-                        setNewValue={setConcentrationTime}
+                    <NumericInput
+                        onChange={value => setInitConcentration(value)} 
+                        step={5}
+                        borderColor={Colors.grey}
+                        totalWidth={110}
+                        totalHeight={38}
+                        textColor={Colors.light}
+                        rightButtonBackgroundColor={Colors.grey}
+                        leftButtonBackgroundColor={Colors.grey}
+                        iconStyle={{color: Colors.light}}
+                        rounded={true}
+                        containerStyle	={{alignSelf: 'center', marginVertical: 5}}
                     />
                 </View>
 
                 <View style={styles.fieldset}>
                     <Text style={styles.label}>Pause (min):</Text>
-                    <NumericInput 
-                        defaultValue={relaxTime}
-                        setNewValue={setRelaxTime}
+                    <NumericInput
+                        onChange={value => setInitRelax(value*60)} 
+                        step={1}
+                        borderColor={Colors.grey}
+                        totalWidth={110}
+                        totalHeight={38}
+                        textColor={Colors.light}
+                        rightButtonBackgroundColor={Colors.grey}
+                        leftButtonBackgroundColor={Colors.grey}
+                        iconStyle={{color: Colors.light}}
+                        rounded={true}
+                        containerStyle={{alignSelf: 'center', marginVertical: 5}}
                     />
                 </View>
 

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Colors from '../../assets/vars/colors'
-import { LinearGradient } from 'expo-linear-gradient';
 import NumericInput from 'react-native-numeric-input';
 import { Button } from 'react-native-paper';
 import { initConcentrationTime, initRelaxTime, setNewConcentrationTime, setNewRelaxTime } from '../redux/actions';
@@ -10,28 +9,29 @@ import { initConcentrationTime, initRelaxTime, setNewConcentrationTime, setNewRe
 // == COMPONENTS
 import Header from '../../src/components/Menu/Header';
 import Footer from '../../src/components/Footer';
-import { NavigationContainer } from '@react-navigation/native';
+
+// == BACKGROUND
+const backgroundImage = require("../../assets/background.png");
+
+// == NAVIGATION
+import { LandingPageProps } from '../navigation/navigationTypes';
 
 
-
-export default function LandingPage({ navigation }) {
+export default function LandingPage({ navigation }: LandingPageProps) {
   const dispatch = useDispatch();
-  const [ initConcentration, setInitConcentration ] = useState<number | null>(0);
-  const [ initRelax, setInitRelax ] = useState<number | null>(0);
+  const [ initConcentration, setInitConcentration ] = useState<number | undefined>(25);
+  const [ initRelax, setInitRelax ] = useState<number | undefined>(5);
+  const [ initHabbit, setInitHabbit ] = useState<string>("");
+
+  useEffect(() => {
+    console.log(initHabbit);
+  }, [initHabbit])
 
   return (
-    <LinearGradient
-      style={styles.container}
-      colors={[Colors.light, Colors.light, Colors.gold]}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 1}}
-    >
-      <View>
-          <Text style={styles.title}>Bienvenue sur  
-              <Text style={styles.appName}> Pomme d'Or...</Text>
-          </Text>
-          <Text style={styles.subtitle}>Booste ta concentration tout en créant de nouvelles habitudes!</Text>
-      </View>
+    <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.container}>
+
+      <Text style={styles.subtitle}>Booste ta concentration tout en créant de nouvelles habitudes!</Text>
+
       <View style={styles.times}>
         <Text style={{...styles.timeTitle, ...styles.card}}>Initialise tes temps:</Text>
         <View style={styles.initTime}>
@@ -39,6 +39,7 @@ export default function LandingPage({ navigation }) {
           <NumericInput
             onChange={value => setInitConcentration(value)} 
             step={5}
+            value={initConcentration}
             borderColor={Colors.grey}
             totalWidth={110}
             totalHeight={38}
@@ -55,6 +56,7 @@ export default function LandingPage({ navigation }) {
           <NumericInput
             onChange={value => setInitRelax(value*60)} 
             step={1}
+            value={initRelax}
             borderColor={Colors.grey}
             totalWidth={110}
             totalHeight={38}
@@ -64,6 +66,15 @@ export default function LandingPage({ navigation }) {
             iconStyle={{color: Colors.light}}
             rounded={true}
             containerStyle={{alignSelf: 'center', marginVertical: 5}}
+          />
+        </View>
+        <View style={styles.initTime}>
+          <Text style={styles.timeTitle}>Habitude à implémenter:</Text>
+          <TextInput
+            multiline={true}
+            value={initHabbit}
+            style={{backgroundColor: Colors.grey, width: '80%', padding: 10, alignSelf: 'center'}}
+            onChangeText={(value) => setInitHabbit(value)}
           />
         </View>
         <Button
@@ -82,7 +93,7 @@ export default function LandingPage({ navigation }) {
         </Button>
       </View>
       <Footer />
-    </LinearGradient>
+    </ImageBackground>
   )
 }
 
@@ -105,7 +116,7 @@ const styles = StyleSheet.create({
     subtitle: {
       paddingHorizontal: 45,
       textAlign: 'center',
-      marginVertical: 25,
+      marginBottom: 25,
       fontSize: 18
     },
     card: {
