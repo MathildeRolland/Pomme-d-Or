@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dimensions, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import Colors from '../../../assets/vars/colors'
-import { setNewConcentrationTime, setNewRelaxTime } from '../../redux/actions';
+import { setNewConcentrationTime, setNewRelaxTime, setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
 import { RootState } from '../../redux';
+import HabitReminder from './HabitReminder';
 
 // == RN PAPER
 import { Card, Button } from 'react-native-paper';
@@ -13,24 +14,36 @@ import Timer from './Timer';
 
 
 const WorkCard = () => {
-    const { concentrationTime, initRelaxTime } = useSelector((state: RootState) => state.timer);
+    const { initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const dispatch = useDispatch();
 
-    const [ time, setTime ] = useState(concentrationTime);
+    // State
+    const [ time, setTime ] = useState<number>(initConcentrationTime);
+    const [ buttonText, setButtonText ] = useState<string>("Start");
+    const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+    
+    // Refs
     const isTimerOn = useRef(false);
-    const [ buttonText, setButtonText ] = useState("Start");
+
+    // useEffect(() => {
+    //     dispatch(setNewConcentrationTime(initConcentrationTime))
+    // }, [])
+
 
     // Function to start countdown
     const timeCountdown = (seconds: number) => {
         // Set interval every second => return formated new time string
         const countdown = setInterval(() => {
             seconds = seconds - 1;
-            dispatch(setNewConcentrationTime(seconds));
+            // dispatch(setNewConcentrationTime(seconds));
+            setTime(seconds);
             if(isTimerOn.current === false) {
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
-                dispatch(setNewRelaxTime(initRelaxTime))
+                setIsModalOpen(true);
+                dispatch(setIsConcentrationModeOn(false));
+                // dispatch(setNewRelaxTime(initRelaxTime));
             }
         }, 1000);
     }
@@ -38,7 +51,7 @@ const WorkCard = () => {
     // Function handle button press
     const handlePress = () => {
         if(isTimerOn.current) {
-            timeCountdown(concentrationTime);
+            timeCountdown(time);
             setButtonText('Stop?');
         } else {
             setButtonText('Start');
@@ -52,7 +65,7 @@ const WorkCard = () => {
             <View style={styles.container}>
                 <Card style={styles.timer}>
                     <Timer 
-                        time={concentrationTime}
+                        time={time}
                         mode="concentration"
                     />
                 </Card>
@@ -70,6 +83,13 @@ const WorkCard = () => {
                 </Button> 
                 </Card.Actions>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalOpen}
+            >
+                <HabitReminder />
+            </Modal>
         </>
     )
 }

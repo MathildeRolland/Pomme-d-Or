@@ -1,5 +1,5 @@
 // Payloads
-interface newHabbitInterface {
+export interface newHabbitInterface {
     newHabbit: string
 }
 
@@ -16,4 +16,4 @@ interface setNewHabbit {
 }
 
 
-export type habbitActionsTypes = setNewHabbit;
+export type HabbitActionsTypes = setNewHabbit;

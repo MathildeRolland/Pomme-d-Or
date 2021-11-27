@@ -1,19 +1,26 @@
-import { TimerActionTypes, INIT_CONCENTRATION_TIME, INIT_RELAX_TIME, SET_NEW_CONCENTRATION_TIME, SET_NEW_RELAX_TIME } from '../types/timerTypes';
+import {
+    TimerActionTypes,
+    INIT_CONCENTRATION_TIME,
+    INIT_RELAX_TIME,
+    SET_NEW_CONCENTRATION_TIME,
+    SET_NEW_RELAX_TIME,
+    SET_IS_CONCENTRATION_MODE_ON,
+    SET_IS_RELAX_MODE_ON
+} from '../types/timerTypes';
 
 interface TimerState {
     initConcentrationTime: number,
     initRelaxTime: number,
-    concentrationTime: number | null,
-    relaxTime: number | null
+    isConcentrationModeOn: boolean,
+    isRelaxModeOn: boolean
 }
 
 
 const initialState: TimerState = {
     initConcentrationTime: 0,
     initRelaxTime: 0,
-    // When app open, put init values down below
-    concentrationTime: null,
-    relaxTime: null,
+    isConcentrationModeOn: false,
+    isRelaxModeOn: false,
 };
 
 export const timerReducer = (state: TimerState = initialState, action: TimerActionTypes) => {
@@ -28,15 +35,15 @@ export const timerReducer = (state: TimerState = initialState, action: TimerActi
                 ...state,
                 initRelaxTime: action.payload
             }
-        case SET_NEW_CONCENTRATION_TIME:
+        case SET_IS_CONCENTRATION_MODE_ON:
             return {
                 ...state,
-                concentrationTime: action.payload
+                isConcentrationModeOn: action.payload
             }
-        case SET_NEW_RELAX_TIME:
+        case SET_IS_RELAX_MODE_ON:
             return {
                 ...state,
-                relaxTime: action.payload
+                isRelaxModeOn: action.payload
             }
         default:
             return state;

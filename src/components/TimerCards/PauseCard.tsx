@@ -10,7 +10,7 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
-import { setNewRelaxTime, setNewConcentrationTime } from '../../redux/actions';
+import { setNewRelaxTime, setNewConcentrationTime, setIsRelaxTimeOver } from '../../redux/actions';
 
 
 
@@ -32,7 +32,8 @@ export default function PauseCard() {
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
-                dispatch(setNewConcentrationTime(initConcentrationTime));
+                dispatch(setIsRelaxTimeOver(true));
+                // dispatch(setNewConcentrationTime(initConcentrationTime));
             }
         }, 1000);
 

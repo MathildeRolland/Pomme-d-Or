@@ -1,21 +1,31 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Colors from '../../../assets/vars/colors';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux';
 
-export type Props = {
-    habit: string,
-};
 
-const HabitReminder: React.FC<Props> = ({ habit }) => {
+const HabitReminder: React.FC = () => {
+    const { initHabbit } = useSelector((state: RootState) => state.timer);
+
     return (
-        <Text style={styles.container}>
-            {habit}
-        </Text>
+        <View style={styles.container}>
+            <Text>Il est temps de compléter ta mission!</Text>
+            <Text style={styles.text}>
+                {initHabbit}
+            </Text>
+            <TouchableOpacity>
+                C'est fait!
+            </TouchableOpacity>
+        </View>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: Colors.dark
+    },
+    text: {
         fontSize: 30,
         color: Colors.gold,
         width: 250,

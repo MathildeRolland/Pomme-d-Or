@@ -4,10 +4,16 @@ import { useDispatch } from 'react-redux';
 import Colors from '../../assets/vars/colors'
 import NumericInput from 'react-native-numeric-input';
 import { Button } from 'react-native-paper';
-import { initConcentrationTime, initRelaxTime, setNewConcentrationTime, setNewRelaxTime } from '../redux/actions';
+import {
+  initConcentrationTime,
+  initRelaxTime,
+  setNewConcentrationTime,
+  setNewRelaxTime,
+  setIsConcentrationModeOn,
+  setNewHabbit
+} from '../redux/actions';
 
 // == COMPONENTS
-import Header from '../../src/components/Menu/Header';
 import Footer from '../../src/components/Footer';
 
 // == BACKGROUND
@@ -27,6 +33,16 @@ export default function LandingPage({ navigation }: LandingPageProps) {
     console.log(initHabbit);
   }, [initHabbit])
 
+  const handleSubmit = () => {
+    dispatch(initConcentrationTime(initConcentration*60));
+    dispatch(initRelaxTime(initRelax*60));
+    // dispatch(setNewConcentrationTime(initConcentration*60));
+    // dispatch(setNewRelaxTime(initRelax*60));
+    dispatch(setIsConcentrationModeOn(true));
+    dispatch(setNewHabbit(initHabbit))
+    navigation.navigate('HomePage');
+  }
+
   return (
     <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.container}>
 
@@ -38,7 +54,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
           <Text style={styles.timeTitle}>Concentration:</Text>
           <NumericInput
             onChange={value => setInitConcentration(value)} 
-            step={5}
+            step={1}
             value={initConcentration}
             borderColor={Colors.grey}
             totalWidth={110}
@@ -81,13 +97,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
           mode="contained"
           color={Colors.gold}
           style={{marginTop: 15, marginBottom: 10, width: '40%', alignSelf: 'center'}}
-          onPress={() => {
-            dispatch(initConcentrationTime(initConcentration*60));
-            dispatch(initRelaxTime(initRelax*60));
-            dispatch(setNewConcentrationTime(initConcentration*60));
-            dispatch(setNewRelaxTime(initRelax*60));
-            navigation.navigate('HomePage');
-          }}
+          onPress={handleSubmit}
         >
           Let's go!
         </Button>

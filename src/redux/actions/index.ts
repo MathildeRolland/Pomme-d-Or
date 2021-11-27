@@ -1,1 +1,2 @@
-export * from './timerAction';
+export * from './timerActions';
+export * from './habbitActions';
