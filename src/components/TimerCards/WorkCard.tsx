@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, Alert, ImageBackground } from 'react-native';
 import Colors from '../../../assets/vars/colors'
-import { setNewConcentrationTime, setNewRelaxTime, setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
+import { setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
 import { RootState } from '../../redux';
 import HabitReminder from './HabitReminder';
 
@@ -25,10 +25,6 @@ const WorkCard = () => {
     // Refs
     const isTimerOn = useRef(false);
 
-    // useEffect(() => {
-    //     dispatch(setNewConcentrationTime(initConcentrationTime))
-    // }, [])
-
 
     // Function to start countdown
     const timeCountdown = (seconds: number) => {
@@ -42,8 +38,7 @@ const WorkCard = () => {
             } else if(seconds === 0) {
                 clearInterval(countdown);
                 setIsModalOpen(true);
-                dispatch(setIsConcentrationModeOn(false));
-                // dispatch(setNewRelaxTime(initRelaxTime));
+                // dispatch(setIsConcentrationModeOn(false));
             }
         }, 1000);
     }
@@ -83,13 +78,18 @@ const WorkCard = () => {
                 </Button> 
                 </Card.Actions>
             </View>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalOpen}
-            >
-                <HabitReminder />
-            </Modal>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={isModalOpen}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setIsModalOpen(!isModalOpen)}}
+                >
+                    <View style={styles.viewWrapper}>
+                        <HabitReminder />
+                    </View>
+                </Modal>
         </>
     )
 }
@@ -123,6 +123,13 @@ const styles = StyleSheet.create({
     button: {
         width: '40%',
         borderRadius: 5,
+    },
+    viewWrapper: {
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#383838e6"
     },
 })
 

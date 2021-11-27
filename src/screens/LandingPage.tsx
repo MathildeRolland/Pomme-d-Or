@@ -7,8 +7,6 @@ import { Button } from 'react-native-paper';
 import {
   initConcentrationTime,
   initRelaxTime,
-  setNewConcentrationTime,
-  setNewRelaxTime,
   setIsConcentrationModeOn,
   setNewHabbit
 } from '../redux/actions';
@@ -29,15 +27,9 @@ export default function LandingPage({ navigation }: LandingPageProps) {
   const [ initRelax, setInitRelax ] = useState<number | undefined>(5);
   const [ initHabbit, setInitHabbit ] = useState<string>("");
 
-  useEffect(() => {
-    console.log(initHabbit);
-  }, [initHabbit])
-
   const handleSubmit = () => {
     dispatch(initConcentrationTime(initConcentration*60));
     dispatch(initRelaxTime(initRelax*60));
-    // dispatch(setNewConcentrationTime(initConcentration*60));
-    // dispatch(setNewRelaxTime(initRelax*60));
     dispatch(setIsConcentrationModeOn(true));
     dispatch(setNewHabbit(initHabbit))
     navigation.navigate('HomePage');
@@ -70,7 +62,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
         <View style={styles.initTime}>
           <Text style={styles.timeTitle}>Pause:</Text>
           <NumericInput
-            onChange={value => setInitRelax(value*60)} 
+            onChange={value => setInitRelax(value)} 
             step={1}
             value={initRelax}
             borderColor={Colors.grey}

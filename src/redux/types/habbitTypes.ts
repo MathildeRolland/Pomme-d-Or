@@ -1,6 +1,6 @@
 // Payloads
 export interface newHabbitInterface {
-    newHabbit: string
+    habbit: string
 }
 
 
