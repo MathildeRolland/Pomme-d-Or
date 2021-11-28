@@ -2,8 +2,6 @@ import {
     TimerActionTypes,
     INIT_CONCENTRATION_TIME,
     INIT_RELAX_TIME,
-    SET_NEW_CONCENTRATION_TIME,
-    SET_NEW_RELAX_TIME,
     SET_IS_CONCENTRATION_MODE_ON,
     SET_IS_RELAX_MODE_ON
 } from '../types/timerTypes';

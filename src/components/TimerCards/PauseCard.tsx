@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text } from 'react-native';
-import Colors from '../../../assets/vars/colors';
+import { StyleSheet, View, Text, Vibration } from 'react-native';
+import { Dark, Light } from '../../../assets/vars/colors';
 
 // == RN PAPER
 import { Card, Button } from 'react-native-paper';
@@ -10,60 +10,88 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
-import { setNewRelaxTime, setNewConcentrationTime, setIsRelaxTimeOver } from '../../redux/actions';
+import { setIsRelaxModeOn, setIsConcentrationModeOn } from '../../redux/actions';
 
 
 
 export default function PauseCard() {
-    const { relaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
+    const { initRelaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
+    const { theme } = useSelector((state: RootState) => state.utils);
     const dispatch = useDispatch();
+
+    // Refs
     const isTimerOn = useRef(false);
 
-    const [ buttonText, setButtonText ] = useState('Chill :D');
+    // State
+    const [ time, setTime ] = useState<number>(0)
+    const [ buttonText, setButtonText ] = useState("");
 
-     // Function to start countdown
-     const timeCountdown = (seconds: number) => {
-        // Set interval every second => return formated new time string
+    // Vibrations settings
+    const ONE_SECOND = 1000;
+    const VIBRATION_PATTERN = [
+        0 * ONE_SECOND,
+        1 * ONE_SECOND,
+        1 * ONE_SECOND,
+        1 * ONE_SECOND,
+    ];
+
+    // // Clear Countdown when unmount
+    // useEffect(() => {
+    //     return () => {
+    //         isTimerOn.current = false;
+    //         setTime(0);
+    //         dispatch(setIsRelaxModeOn(false));
+    //     }
+    // }, [])
+
+    // Start countdown
+    const timeCountdown = (seconds: number) => {
+        // Every second => retrieve 1 second and set new Time
         const countdown = setInterval(() => {
             seconds = seconds - 1;
-            dispatch(setNewRelaxTime(seconds));
+            setTime(seconds);
 
             if(isTimerOn.current === false) {
+                // Stop time if stop button is pressed
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
-                dispatch(setIsRelaxTimeOver(true));
-                // dispatch(setNewConcentrationTime(initConcentrationTime));
+                // Make phone vibrate
+                Vibration.vibrate(VIBRATION_PATTERN);
+                dispatch(setIsRelaxModeOn(false));
+                dispatch(setIsConcentrationModeOn(true));
             }
         }, 1000);
 
         return countdown;
     }
 
+    // Handle Button Press
     const handlePress = () => {
-        console.log('relax time' , relaxTime);
         if(isTimerOn.current) {
-            timeCountdown(relaxTime);
-            setButtonText('Back To Work?');
+            timeCountdown(time);
+            setButtonText('Stop');
         } else {
             setButtonText('Chill')
         }
     }
+
     
     return (
         <>
-            <Text style={styles.title}>A few minutes to relax</Text>
             <View style={styles.container}>
-                <Card style={styles.timer}>
+                <Card style={[styles.timer, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
+                    <Text style={[styles.title, theme === 'light' ? {color: Light.text} : {color: Dark.text}]}>Repos du guerrier</Text>
+                    <View style={[styles.divider, theme === 'light' ? {backgroundColor: Light.text} : {backgroundColor: Dark.text}]} />
                     <Timer 
-                        time={relaxTime}
+                        time={time}
                         mode = "relax"
                     />
                 </Card>
-                <Card.Actions style={styles.buttonContainer}>
+                <Card.Actions style={[styles.buttonContainer, theme === 'light' ? {backgroundColor: Light.secondary} : {backgroundColor: Dark.secondary}]}>
                 <Button
                     mode="contained"
-                    color={Colors.gold}
+                    color={theme === 'light' ? Dark.secondary : Dark.dark}
                     style={styles.button}
                     onPress={() => {
                         isTimerOn.current = !isTimerOn.current;
@@ -83,21 +111,29 @@ const styles = StyleSheet.create({
         marginVertical: 70,
         width: '80%',
         alignSelf: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     title: {
         fontSize: 20,
         alignSelf: 'center',
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
+        marginTop: 15,
+        marginBottom: 10
     },
     timer: {
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        backgroundColor: Colors.darkGrey,
     },
     buttonContainer: {
-        backgroundColor: "#4E4E4E",
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         paddingVertical: 20,
@@ -107,4 +143,9 @@ const styles = StyleSheet.create({
         width: '40%',
         borderRadius: 5,
     },
+    divider: {
+        height: 1,
+        width: '70%',
+        alignSelf: 'center',
+    }
 });

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
-import Colors from '../../assets/vars/colors'
+import React, { useState, useRef } from 'react';
+import { StyleSheet, Text, View, ImageBackground, TextInput, Keyboard } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dark, Light } from '../../assets/vars/colors'
 import NumericInput from 'react-native-numeric-input';
 import { Button } from 'react-native-paper';
 import {
@@ -10,6 +10,7 @@ import {
   setIsConcentrationModeOn,
   setNewHabbit
 } from '../redux/actions';
+import { RootState } from '../redux';
 
 // == COMPONENTS
 import Footer from '../../src/components/Footer';
@@ -23,9 +24,13 @@ import { LandingPageProps } from '../navigation/navigationTypes';
 
 export default function LandingPage({ navigation }: LandingPageProps) {
   const dispatch = useDispatch();
+  const { theme } = useSelector((state: RootState) => state.utils);
+
+  // State
   const [ initConcentration, setInitConcentration ] = useState<number | undefined>(25);
   const [ initRelax, setInitRelax ] = useState<number | undefined>(5);
   const [ initHabbit, setInitHabbit ] = useState<string>("");
+
 
   const handleSubmit = () => {
     dispatch(initConcentrationTime(initConcentration*60));
@@ -36,59 +41,68 @@ export default function LandingPage({ navigation }: LandingPageProps) {
   }
 
   return (
-    <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.container}>
+    <ImageBackground
+      source={backgroundImage}
+      resizeMode="cover"
+      style={[styles.container, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.dark}]}
+    >
 
-      <Text style={styles.subtitle}>Booste ta concentration tout en créant de nouvelles habitudes!</Text>
+      <Text style={[styles.subtitle, theme === "light" ? {backgroundColor: Light.primary, color: Light.text} : {backgroundColor: Dark.primary, color: Dark.text}]}>Booste ta concentration tout en créant de nouvelles habitudes!</Text>
 
-      <View style={styles.times}>
-        <Text style={{...styles.timeTitle, ...styles.card}}>Initialise tes temps:</Text>
+      <View style={[styles.times, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
+        <Text style={[styles.timeTitle, styles.card, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}>
+          Initialise tes temps:
+        </Text>
         <View style={styles.initTime}>
-          <Text style={styles.timeTitle}>Concentration:</Text>
+          <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Concentration:</Text>
           <NumericInput
             onChange={value => setInitConcentration(value)} 
             step={1}
             value={initConcentration}
-            borderColor={Colors.grey}
+            borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
             totalWidth={110}
             totalHeight={38}
-            textColor={Colors.light}
-            rightButtonBackgroundColor={Colors.grey}
-            leftButtonBackgroundColor={Colors.grey}
-            iconStyle={{color: Colors.light}}
+            textColor={theme === "light" ? Light.text : Dark.text}
+            rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+            leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+            iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
             rounded={true}
             containerStyle	={{alignSelf: 'center', marginVertical: 5}}
           />
         </View>
         <View style={styles.initTime}>
-          <Text style={styles.timeTitle}>Pause:</Text>
+          <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Pause:</Text>
           <NumericInput
             onChange={value => setInitRelax(value)} 
             step={1}
             value={initRelax}
-            borderColor={Colors.grey}
+            borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
             totalWidth={110}
             totalHeight={38}
-            textColor={Colors.light}
-            rightButtonBackgroundColor={Colors.grey}
-            leftButtonBackgroundColor={Colors.grey}
-            iconStyle={{color: Colors.light}}
+            textColor={theme === "light" ? Light.text : Dark.text}
+            rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+            leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+            iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
             rounded={true}
             containerStyle={{alignSelf: 'center', marginVertical: 5}}
           />
         </View>
         <View style={styles.initTime}>
-          <Text style={styles.timeTitle}>Habitude à implémenter:</Text>
+          <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Habitude à implémenter:</Text>
           <TextInput
             multiline={true}
+            maxLength={150}
             value={initHabbit}
-            style={{backgroundColor: Colors.grey, width: '80%', padding: 10, alignSelf: 'center'}}
+            blurOnSubmit={true}
+            onSubmitEditing={() => Keyboard.dismiss()}
+            style={[styles.textarea, theme === 'light' ? {backgroundColor: Light.secondary} : {backgroundColor: Dark.secondary}]}
             onChangeText={(value) => setInitHabbit(value)}
           />
         </View>
         <Button
           mode="contained"
-          color={Colors.gold}
-          style={{marginTop: 15, marginBottom: 10, width: '40%', alignSelf: 'center'}}
+          color={Dark.gold}
+          style={styles.button}
           onPress={handleSubmit}
         >
           Let's go!
@@ -111,7 +125,7 @@ const styles = StyleSheet.create({
       alignSelf: 'center'
     },
     appName: {
-      color: Colors.gold,
+      color: Dark.gold,
       fontWeight: 'bold',
       fontStyle: 'italic'
     },
@@ -119,10 +133,10 @@ const styles = StyleSheet.create({
       paddingHorizontal: 45,
       textAlign: 'center',
       marginBottom: 25,
-      fontSize: 18
+      fontSize: 18,
+      paddingVertical: 10,
     },
     card: {
-      backgroundColor: Colors.dark,
       textTransform: 'uppercase',
       width: '100%',
       textAlign: 'center',
@@ -130,7 +144,6 @@ const styles = StyleSheet.create({
       marginTop: 0
     },
     times: {
-      backgroundColor: Colors.darkGrey,
       width: '80%',
       paddingBottom: 20,
       borderRadius: 10,
@@ -141,9 +154,23 @@ const styles = StyleSheet.create({
       marginBottom: 15
     },
     timeTitle: {
-      fontSize: 16,
+      fontSize: 15,
       alignSelf: 'center',
       marginVertical: 5,
-      color: Colors.light
+      color: Light.text
     },
+    textarea: {
+      width: '80%',
+      borderRadius: 5,
+      padding: 10,
+      alignSelf: 'center',
+      textAlign: 'center',
+      maxHeight: 60
+    },
+    button: {
+      marginTop: 15,
+      marginBottom: 10,
+      width: '40%',
+      alignSelf: 'center'
+    }
   });
