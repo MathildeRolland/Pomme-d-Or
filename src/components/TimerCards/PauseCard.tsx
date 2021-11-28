@@ -23,8 +23,8 @@ export default function PauseCard() {
     const isTimerOn = useRef(false);
 
     // State
-    const [ time, setTime ] = useState<number>(0)
-    const [ buttonText, setButtonText ] = useState("");
+    const [ time, setTime ] = useState<number>(initConcentrationTime)
+    const [ buttonText, setButtonText ] = useState("Chill :D");
 
     // Vibrations settings
     const ONE_SECOND = 1000;
@@ -34,15 +34,6 @@ export default function PauseCard() {
         1 * ONE_SECOND,
         1 * ONE_SECOND,
     ];
-
-    // // Clear Countdown when unmount
-    // useEffect(() => {
-    //     return () => {
-    //         isTimerOn.current = false;
-    //         setTime(0);
-    //         dispatch(setIsRelaxModeOn(false));
-    //     }
-    // }, [])
 
     // Start countdown
     const timeCountdown = (seconds: number) => {
@@ -98,7 +89,7 @@ export default function PauseCard() {
                         handlePress();
                     }}
                 >
-                    {buttonText}
+                    <Text style={{color: "#fff"}}>{buttonText}</Text>
                 </Button> 
                 </Card.Actions>
             </View>
