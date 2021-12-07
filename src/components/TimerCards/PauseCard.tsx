@@ -69,10 +69,9 @@ export default function PauseCard({ navigation }: PauseCardProps) {
                 clearInterval(countdown);
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
-                dispatch(setIsRelaxModeOn(false));
-
-                dispatch(setIsConcentrationModeOn(true));
-
+                // dispatch(setIsRelaxModeOn(false));
+                // dispatch(setIsConcentrationModeOn(true));
+                isTimerOn.current = false;
                 navigation.navigate('WorkCard');
             }
         }, 1000);

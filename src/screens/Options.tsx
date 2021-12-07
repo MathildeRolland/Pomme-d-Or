@@ -1,80 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import Colors from '../../assets/vars/colors';
-import NumericInput from 'react-native-numeric-input';
-import { initConcentrationTime, initRelaxTime, setNewConcentrationTime, setNewRelaxTime } from '../redux/actions';
+import { Dark, Light } from '../../assets/vars/colors';
+import { RootState } from '../redux';
+
+// COMPONENTS
+import Settings from '../components/Settings';
 
 
-// == == == == == == == == == TYPES == == == == == == == == == == //
-interface OptionsProps {
-    concentrationTime: number,
-    setConcentrationTime: React.Dispatch<React.SetStateAction<number>>,
-    relaxTime: number,
-    setRelaxTime: React.Dispatch<React.SetStateAction<number>>,
-    currentHabbit: string,
-    setCurrentHabbit: React.Dispatch<React.SetStateAction<string>>
-}
-// == == == == == == == == == == == == == == == == == == == == == //
+const Options = () => {
 
-
-const Options: React.FC<OptionsProps> = () => {
-    const dispatch = useDispatch();
-    const [ initConcentration, setInitConcentration ] = useState<number | null>(0);
-    const [ initRelax, setInitRelax ] = useState<number | null>(0);
-    const [ habbit, setHabbit ] = useState("");
-
+    const { theme } = useSelector((state: RootState) => state.utils);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Options</Text>
-            <View>
-                <View style={styles.fieldset}>
-                    <Text style={styles.label}>Concentration (min):</Text>
-                    <NumericInput
-                        onChange={value => setInitConcentration(value)} 
-                        step={5}
-                        borderColor={Colors.grey}
-                        totalWidth={110}
-                        totalHeight={38}
-                        textColor={Colors.light}
-                        rightButtonBackgroundColor={Colors.grey}
-                        leftButtonBackgroundColor={Colors.grey}
-                        iconStyle={{color: Colors.light}}
-                        rounded={true}
-                        containerStyle	={{alignSelf: 'center', marginVertical: 5}}
-                    />
-                </View>
-
-                <View style={styles.fieldset}>
-                    <Text style={styles.label}>Pause (min):</Text>
-                    <NumericInput
-                        onChange={value => setInitRelax(value*60)} 
-                        step={1}
-                        borderColor={Colors.grey}
-                        totalWidth={110}
-                        totalHeight={38}
-                        textColor={Colors.light}
-                        rightButtonBackgroundColor={Colors.grey}
-                        leftButtonBackgroundColor={Colors.grey}
-                        iconStyle={{color: Colors.light}}
-                        rounded={true}
-                        containerStyle={{alignSelf: 'center', marginVertical: 5}}
-                    />
-                </View>
-
-                <View style={[styles.fieldset, {alignItems: 'flex-start'}]}>
-                    <Text style={styles.label}>Mission:</Text>
-                    <TextInput 
-                        placeholder="Ecris ici l'habitude que tu souhaites implémenter ;) "
-                        multiline={true}
-                        numberOfLines={5}
-                        style={[styles.input, styles.textarea]}
-                        defaultValue={currentHabbit}
-                        onChangeText={(currentHabbit) => setCurrentHabbit(currentHabbit)}
-                    />
-                </View>
-            </View>
+        <View style={[styles.container, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.dark}]}>
+            <Text style={[styles.title, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.primary, color: Dark.text}]}>Options</Text>
+            <Settings />
         </View>
     )
 }
@@ -82,47 +23,18 @@ const Options: React.FC<OptionsProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '90%',
+        width: '100%',
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.darkGrey,
-        borderRadius: 15,
-        marginVertical: 50
+        justifyContent: 'flex-start',
+        alignSelf: 'center'
     },
     title: {
-        width: 140,
+        width: '100%',
+        paddingHorizontal: 45,
         textAlign: 'center',
-        fontSize: 25,
-        borderBottomWidth: 2,
-        borderBottomColor: Colors.light,
-        color: Colors.light,
-        marginBottom: 30
-    },
-    fieldset: {
-        width: 250,
-        backgroundColor: Colors.grey,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 7,
-        marginVertical: 10,
+        fontSize: 18,
         paddingVertical: 10,
-        paddingHorizontal: 10
-    },
-    label: {
-        color: Colors.light,
-    },
-    input: {
-        backgroundColor: Colors.light,
-        borderRadius: 5,
-        paddingVertical: 1,
-        paddingHorizontal: 10
-    },
-    textarea: {
-        flex: 1,
-        marginLeft: 15,
-        height: 130,
-        textAlignVertical: 'top'
+        marginVertical: 40,
     },
 });
 

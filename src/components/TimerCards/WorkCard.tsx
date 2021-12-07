@@ -68,6 +68,7 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
                 setIsModalOpen(true);
+                isTimerOn.current = false;
             }
         }, 1000);
     }
