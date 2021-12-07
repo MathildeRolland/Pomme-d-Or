@@ -37,7 +37,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
     dispatch(initRelaxTime(initRelax*60));
     dispatch(setIsConcentrationModeOn(true));
     dispatch(setNewHabbit(initHabbit))
-    navigation.navigate('HomePage');
+    navigation.navigate('WorkCard');
   }
 
   return (
@@ -67,7 +67,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
             leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
             iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
             rounded={true}
-            containerStyle	={{alignSelf: 'center', marginVertical: 5}}
+            containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
           />
         </View>
         <View style={styles.initTime}>
@@ -84,7 +84,7 @@ export default function LandingPage({ navigation }: LandingPageProps) {
             leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
             iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
             rounded={true}
-            containerStyle={{alignSelf: 'center', marginVertical: 5}}
+            containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
           />
         </View>
         <View style={styles.initTime}>

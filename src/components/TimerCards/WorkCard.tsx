@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Modal, Alert, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, Modal, Alert, ImageBackground, Vibration } from 'react-native';
 import { Dark, Light } from '../../../assets/vars/colors'
 import { setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
 import { RootState } from '../../redux';
@@ -12,8 +12,15 @@ import { Card, Button } from 'react-native-paper';
 // == COMPONENTS
 import Timer from './Timer';
 
+// == NAVIGATION
+import { WorkCardProps } from '../../navigation/navigationTypes';
+import { useFocusEffect } from '@react-navigation/core';
 
-const WorkCard = () => {
+// BACKGROUND
+const backgroundImage = require("../../../assets/background.png");
+
+
+const WorkCard = ({ navigation }: WorkCardProps) => {
     const { initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const dispatch = useDispatch();
     const { theme } = useSelector((state: RootState) => state.utils);
@@ -26,12 +33,26 @@ const WorkCard = () => {
     // Refs
     const isTimerOn = useRef(false);
 
-    // Clear Countdown when unmount
-    useEffect(() => {
-        return () => {
-            isTimerOn.current = false;
-        }
-    }, [])
+    // Vibrations settings
+    const ONE_SECOND = 1000;
+    const VIBRATION_PATTERN = [
+        0 * ONE_SECOND,
+        1 * ONE_SECOND,
+        1 * ONE_SECOND,
+        1 * ONE_SECOND,
+    ];
+
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log("workcard useEffect")
+            setTime(initConcentrationTime);
+            setButtonText('Start');
+
+            return () => {
+                setTime(0);
+            }
+        }, [])
+    );
 
     // Function to start countdown
     const timeCountdown = (seconds: number) => {
@@ -43,6 +64,9 @@ const WorkCard = () => {
                 clearInterval(countdown);
             } else if(seconds === 0) {
                 clearInterval(countdown);
+
+                // Make phone vibrate
+                Vibration.vibrate(VIBRATION_PATTERN);
                 setIsModalOpen(true);
             }
         }, 1000);
@@ -60,7 +84,7 @@ const WorkCard = () => {
 
     // Component
     return (
-        <>
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={[styles.background, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.dark}]}>
             <View style={styles.container}>
                 <Card style={[styles.timer, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
                     <Text style={[styles.title, theme === 'light' ? {color: Light.text} : {color: Dark.text}]}>Time to Focus</Text>
@@ -96,11 +120,17 @@ const WorkCard = () => {
                     <HabbitReminder setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
                 </View>
             </Modal>
-        </>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container: {
         marginTop: 30,
         marginBottom: 50,

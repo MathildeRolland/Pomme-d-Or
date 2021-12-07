@@ -16,6 +16,8 @@ import { switchTheme } from '../redux/actions'
 // == COMPONENT
 import LandingPage from '../screens/LandingPage';
 import HomePage from '../screens/HomePage';
+import WorkCard from '../components/TimerCards/WorkCard';
+import PauseCard from '../components/TimerCards/PauseCard'
 import Options from '../screens/Options';
 
 
@@ -62,11 +64,61 @@ export const AppNavigation: React.FC<StackParamsList> = () => {
                         )
                     })}
                 />
-                <Stack.Screen
+                {/* <Stack.Screen
                     name="HomePage"
                     component={HomePage}
                     options={({ navigation }) => ({
                         title: 'Accueil',
+                        headerStyle: {
+                            backgroundColor: Dark.gold
+                        },
+                        headerRight: () => (
+                            <>
+                                <Switch 
+                                    onValueChange={() => setIsToggle(!isToggle)}
+                                    value={isToggle}
+                                    thumbColor={isToggle ? Dark.dark : Light.primary}
+                                    trackColor={{false: Light.secondary, true: Dark.primary }}
+                                />
+                                <Pressable
+                                    onPress={() => navigation.navigate('Settings')}
+                                >
+                                    <MaterialIcons name="settings" size={24} color={Dark.dark} />
+                                </Pressable>
+                            </>
+                        )
+                    })}
+                /> */}
+                <Stack.Screen
+                    name="WorkCard"
+                    component={WorkCard}
+                    options={({ navigation }) => ({
+                        title: 'Concentration',
+                        headerStyle: {
+                            backgroundColor: Dark.gold
+                        },
+                        headerRight: () => (
+                            <>
+                                <Switch 
+                                    onValueChange={() => setIsToggle(!isToggle)}
+                                    value={isToggle}
+                                    thumbColor={isToggle ? Dark.dark : Light.primary}
+                                    trackColor={{false: Light.secondary, true: Dark.primary }}
+                                />
+                                <Pressable
+                                    onPress={() => navigation.navigate('Settings')}
+                                >
+                                    <MaterialIcons name="settings" size={24} color={Dark.dark} />
+                                </Pressable>
+                            </>
+                        )
+                    })}
+                />
+                 <Stack.Screen
+                    name="PauseCard"
+                    component={PauseCard}
+                    options={({ navigation }) => ({
+                        title: 'Pause',
                         headerStyle: {
                             backgroundColor: Dark.gold
                         },

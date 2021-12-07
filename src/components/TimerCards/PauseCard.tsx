@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Vibration } from 'react-native';
+import { StyleSheet, View, Text, Vibration, ImageBackground } from 'react-native';
 import { Dark, Light } from '../../../assets/vars/colors';
 
 // == RN PAPER
@@ -10,11 +10,19 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
+// REDUX
 import { setIsRelaxModeOn, setIsConcentrationModeOn } from '../../redux/actions';
 
+// == NAVIGATION
+import { PauseCardProps } from '../../navigation/navigationTypes';
+import { useFocusEffect } from '@react-navigation/core';
 
 
-export default function PauseCard() {
+// BACKGROUND
+const backgroundImage = require("../../../assets/background.png");
+
+
+export default function PauseCard({ navigation }: PauseCardProps) {
     const { initRelaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const { theme } = useSelector((state: RootState) => state.utils);
     const dispatch = useDispatch();
@@ -35,6 +43,18 @@ export default function PauseCard() {
         1 * ONE_SECOND,
     ];
 
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log("pauseCard useEffect")
+            setTime(initRelaxTime);
+            setButtonText('Start');
+
+            return () => {
+                setTime(0);
+            }
+        }, [])
+    );
+
     // Start countdown
     const timeCountdown = (seconds: number) => {
         // Every second => retrieve 1 second and set new Time
@@ -50,7 +70,10 @@ export default function PauseCard() {
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
                 dispatch(setIsRelaxModeOn(false));
+
                 dispatch(setIsConcentrationModeOn(true));
+
+                navigation.navigate('WorkCard');
             }
         }, 1000);
 
@@ -69,7 +92,7 @@ export default function PauseCard() {
 
     
     return (
-        <>
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={[styles.background, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.dark}]}>
             <View style={styles.container}>
                 <Card style={[styles.timer, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
                     <Text style={[styles.title, theme === 'light' ? {color: Light.text} : {color: Dark.text}]}>Repos du guerrier</Text>
@@ -93,11 +116,17 @@ export default function PauseCard() {
                 </Button> 
                 </Card.Actions>
             </View>
-        </>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container: {
         marginVertical: 70,
         width: '80%',
