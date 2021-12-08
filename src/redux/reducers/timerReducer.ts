@@ -23,7 +23,7 @@ const initialState: TimerState = {
 
 export const timerReducer = (state: TimerState = initialState, action: TimerActionTypes) => {
     switch(action.type) {
-        case INIT_CONCENTRATION_TIME:
+        case INIT_CONCENTRATION_TIME: 
             return {
                 ...state,
                 initConcentrationTime: action.payload

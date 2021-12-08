@@ -25,10 +25,10 @@ const backgroundImage = require("../../../assets/background.png");
 export default function PauseCard({ navigation }: PauseCardProps) {
     const { initRelaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const { theme } = useSelector((state: RootState) => state.utils);
-    const dispatch = useDispatch();
 
     // Refs
     const isTimerOn = useRef(false);
+    const countdown: { current: NodeJS.Timeout | null } = useRef(null);
 
     // State
     const [ time, setTime ] = useState<number>(initConcentrationTime)
@@ -45,12 +45,12 @@ export default function PauseCard({ navigation }: PauseCardProps) {
 
     useFocusEffect(
         React.useCallback(() => {
-            console.log("pauseCard useEffect")
             setTime(initRelaxTime);
             setButtonText('Start');
 
             return () => {
-                setTime(0);
+                isTimerOn.current = false;
+                clearInterval(countdown.current as NodeJS.Timeout);
             }
         }, [])
     );
@@ -58,25 +58,21 @@ export default function PauseCard({ navigation }: PauseCardProps) {
     // Start countdown
     const timeCountdown = (seconds: number) => {
         // Every second => retrieve 1 second and set new Time
-        const countdown = setInterval(() => {
+        countdown.current = setInterval(() => {
             seconds = seconds - 1;
             setTime(seconds);
 
             if(isTimerOn.current === false) {
                 // Stop time if stop button is pressed
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
             } else if(seconds === 0) {
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
-                // dispatch(setIsRelaxModeOn(false));
-                // dispatch(setIsConcentrationModeOn(true));
                 isTimerOn.current = false;
                 navigation.navigate('WorkCard');
             }
         }, 1000);
-
-        return countdown;
     }
 
     // Handle Button Press

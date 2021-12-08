@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StyleSheet, View, Text, Modal, Alert, ImageBackground, Vibration } from 'react-native';
 import { Dark, Light } from '../../../assets/vars/colors'
 import { setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
@@ -22,7 +22,6 @@ const backgroundImage = require("../../../assets/background.png");
 
 const WorkCard = ({ navigation }: WorkCardProps) => {
     const { initConcentrationTime } = useSelector((state: RootState) => state.timer);
-    const dispatch = useDispatch();
     const { theme } = useSelector((state: RootState) => state.utils);
 
     // State
@@ -32,6 +31,8 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
     
     // Refs
     const isTimerOn = useRef(false);
+    const countdown: { current: NodeJS.Timeout | null } = useRef(null);
+    // const time: { current: number } = useRef(initConcentrationTime);
 
     // Vibrations settings
     const ONE_SECOND = 1000;
@@ -44,26 +45,26 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
 
     useFocusEffect(
         React.useCallback(() => {
-            console.log("workcard useEffect")
             setTime(initConcentrationTime);
             setButtonText('Start');
 
             return () => {
-                setTime(0);
+                isTimerOn.current = false;
+                clearInterval(countdown.current as NodeJS.Timeout);
             }
-        }, [])
+        }, [initConcentrationTime])
     );
 
     // Function to start countdown
     const timeCountdown = (seconds: number) => {
         // Set interval every second => return formated new time string
-        const countdown = setInterval(() => {
+        countdown.current = setInterval(() => {
             seconds = seconds - 1;
             setTime(seconds);
             if(isTimerOn.current === false) {
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
             } else if(seconds === 0) {
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
 
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
@@ -82,6 +83,8 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
             setButtonText('Start');
         }
     }
+
+    console.log("init concentration", initConcentrationTime)
 
     // Component
     return (

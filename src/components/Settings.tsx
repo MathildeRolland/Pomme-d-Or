@@ -13,7 +13,7 @@ import {
   } from '../redux/actions';
 
 // == NAVIGATION
-import { useNavigation } from '@react-navigation/core';
+import { useFocusEffect, useNavigation } from '@react-navigation/core';
 
 
 const Settings = () => {
@@ -29,7 +29,6 @@ const Settings = () => {
     const handleSubmit = () => {
         dispatch(initConcentrationTime(initConcentration*60));
         dispatch(initRelaxTime(initRelax*60));
-        dispatch(setIsConcentrationModeOn(true));
         dispatch(setNewHabbit(initHabbit))
         navigation.navigate('WorkCard');
     }

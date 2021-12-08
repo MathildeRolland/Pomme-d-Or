@@ -24,11 +24,8 @@ const HabbitReminder= ({ setIsModalOpen, isModalOpen }: Props) => {
     const { theme } = useSelector((state: RootState) => state.utils);
 
     const handlePress = () => {
-        console.log("modal button pressed");
-        // dispatch(setIsConcentrationModeOn(false));
         setIsModalOpen(!isModalOpen);
         navigation.navigate('PauseCard');
-        // dispatch(setIsRelaxModeOn(true));
     }
 
     return (
