@@ -1,33 +1,19 @@
 import { ActionCreator } from 'redux';
 import {
-    INIT_CONCENTRATION_TIME,
-    INIT_RELAX_TIME,
-    SET_IS_CONCENTRATION_MODE_ON,
-    SET_IS_RELAX_MODE_ON,
+    SET_NEW_CONCENTRATION_TIME,
+    SET_NEW_RELAX_TIME,
     TimerActionTypes,
     initConcentrationTimeInterface,
     initRelaxTimeInterface,
-    isConcentrationModeOnInterface,
-    isRelaxModeOnInterface
 } from "../types";
 
 
-export const initConcentrationTime: ActionCreator<TimerActionTypes> = (concentrationTime: initConcentrationTimeInterface) => ({
-    type: INIT_CONCENTRATION_TIME,
+export const SetNewConcentrationTime: ActionCreator<TimerActionTypes> = (concentrationTime: initConcentrationTimeInterface) => ({
+    type: SET_NEW_CONCENTRATION_TIME,
     payload: concentrationTime
 });
 
-export const initRelaxTime:  ActionCreator<TimerActionTypes> = (relaxTime: initRelaxTimeInterface) => ({
-    type: INIT_RELAX_TIME,
+export const SetNewRelaxTime:  ActionCreator<TimerActionTypes> = (relaxTime: initRelaxTimeInterface) => ({
+    type: SET_NEW_RELAX_TIME,
     payload: relaxTime
-});
-
-export const setIsConcentrationModeOn: ActionCreator<TimerActionTypes> = (isConcentationModeOn: isConcentrationModeOnInterface) => ({
-    type: SET_IS_CONCENTRATION_MODE_ON,
-    payload: isConcentationModeOn,
-});
-
-export const setIsRelaxModeOn: ActionCreator<TimerActionTypes> = (isRelaxModeOn: isRelaxModeOnInterface) => ({
-    type: SET_IS_RELAX_MODE_ON,
-    payload: isRelaxModeOn
 });

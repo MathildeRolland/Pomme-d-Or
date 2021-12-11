@@ -5,23 +5,24 @@ import { Button } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux';
 
-import { setIsRelaxModeOn, setIsConcentrationModeOn } from '../../redux/actions/timerActions';
+// NAVIGATION
+import { useNavigation } from '@react-navigation/native';
+import { workCardNavigationType } from '../../navigation/navigationTypes';
 
 interface Props {
     isModalOpen: boolean,
-    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
+
 const HabbitReminder= ({ setIsModalOpen, isModalOpen }: Props) => {
-    const dispatch = useDispatch();
+    const navigation = useNavigation<workCardNavigationType>();
     const { habbit } = useSelector((state: RootState) => state.habbit);
     const { theme } = useSelector((state: RootState) => state.utils);
 
     const handlePress = () => {
-        console.log("modal button pressed");
-        dispatch(setIsConcentrationModeOn(false));
         setIsModalOpen(!isModalOpen);
-        dispatch(setIsRelaxModeOn(true));
+        navigation.navigate('PauseCard');
     }
 
     return (
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 17,
         alignSelf: 'center',
+        textAlign: 'center',
         marginBottom: 10
     },
     habbit: {

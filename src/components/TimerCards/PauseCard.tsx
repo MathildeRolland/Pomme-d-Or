@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, View, Text, Vibration } from 'react-native';
+import { StyleSheet, View, Text, Vibration, ImageBackground } from 'react-native';
 import { Dark, Light } from '../../../assets/vars/colors';
 
 // == RN PAPER
@@ -10,17 +10,22 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
-import { setIsRelaxModeOn, setIsConcentrationModeOn } from '../../redux/actions';
+// == NAVIGATION
+import { PauseCardProps } from '../../navigation/navigationTypes';
+import { useFocusEffect } from '@react-navigation/core';
 
 
+// BACKGROUND
+const backgroundImage = require("../../../assets/background.png");
 
-export default function PauseCard() {
+
+export default function PauseCard({ navigation }: PauseCardProps) {
     const { initRelaxTime, initConcentrationTime } = useSelector((state: RootState) => state.timer);
     const { theme } = useSelector((state: RootState) => state.utils);
-    const dispatch = useDispatch();
 
     // Refs
     const isTimerOn = useRef(false);
+    const countdown: { current: NodeJS.Timeout | null } = useRef(null);
 
     // State
     const [ time, setTime ] = useState<number>(initConcentrationTime)
@@ -35,26 +40,36 @@ export default function PauseCard() {
         1 * ONE_SECOND,
     ];
 
+    useFocusEffect(
+        React.useCallback(() => {
+            setTime(initRelaxTime);
+            setButtonText('Start');
+
+            return () => {
+                isTimerOn.current = false;
+                clearInterval(countdown.current as NodeJS.Timeout);
+            }
+        }, [])
+    );
+
     // Start countdown
     const timeCountdown = (seconds: number) => {
         // Every second => retrieve 1 second and set new Time
-        const countdown = setInterval(() => {
+        countdown.current = setInterval(() => {
             seconds = seconds - 1;
             setTime(seconds);
 
             if(isTimerOn.current === false) {
                 // Stop time if stop button is pressed
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
             } else if(seconds === 0) {
-                clearInterval(countdown);
+                clearInterval(countdown.current as NodeJS.Timeout);
                 // Make phone vibrate
                 Vibration.vibrate(VIBRATION_PATTERN);
-                dispatch(setIsRelaxModeOn(false));
-                dispatch(setIsConcentrationModeOn(true));
+                isTimerOn.current = false;
+                navigation.navigate('WorkCard');
             }
         }, 1000);
-
-        return countdown;
     }
 
     // Handle Button Press
@@ -69,7 +84,7 @@ export default function PauseCard() {
 
     
     return (
-        <>
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={[styles.background, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.dark}]}>
             <View style={styles.container}>
                 <Card style={[styles.timer, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
                     <Text style={[styles.title, theme === 'light' ? {color: Light.text} : {color: Dark.text}]}>Repos du guerrier</Text>
@@ -93,11 +108,17 @@ export default function PauseCard() {
                 </Button> 
                 </Card.Actions>
             </View>
-        </>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container: {
         marginVertical: 70,
         width: '80%',
