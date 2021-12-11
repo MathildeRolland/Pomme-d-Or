@@ -10,9 +10,6 @@ import { Card, Button } from 'react-native-paper';
 import Timer from './Timer';
 import { RootState } from '../../redux';
 
-// REDUX
-import { setIsRelaxModeOn, setIsConcentrationModeOn } from '../../redux/actions';
-
 // == NAVIGATION
 import { PauseCardProps } from '../../navigation/navigationTypes';
 import { useFocusEffect } from '@react-navigation/core';

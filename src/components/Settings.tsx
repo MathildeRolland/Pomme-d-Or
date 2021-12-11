@@ -6,72 +6,86 @@ import { RootState } from '../redux';
 import { Dark, Light } from '../../assets/vars/colors';
 import NumericInput from 'react-native-numeric-input';
 import {
-    initConcentrationTime,
-    initRelaxTime,
-    setIsConcentrationModeOn,
+    SetNewConcentrationTime,
+    SetNewRelaxTime,
     setNewHabbit
   } from '../redux/actions';
 
 // == NAVIGATION
-import { useFocusEffect, useNavigation } from '@react-navigation/core';
-
+import { useNavigation } from '@react-navigation/core';
+import { workCardNavigationType } from '../navigation/navigationTypes';
 
 const Settings = () => {
     const dispatch = useDispatch();
+    
+    // Selectors
+    const { initConcentrationTime, initRelaxTime } = useSelector((state: RootState) => state.timer);
+    const { habbit } = useSelector((state: RootState) => state.habbit);
+
     const { theme } = useSelector((state: RootState) => state.utils);
-    const navigation = useNavigation();
+    const navigation = useNavigation<workCardNavigationType>();
 
     // State
-    const [ initConcentration, setInitConcentration ] = useState<number | undefined>(25);
-    const [ initRelax, setInitRelax ] = useState<number | undefined>(5);
-    const [ initHabbit, setInitHabbit ] = useState<string>("");
-
+    const [ initConcentration, setInitConcentration ] = useState<number>(initConcentrationTime / 60);
+    const [ initRelax, setInitRelax ] = useState<number>(initRelaxTime / 60);
+    const [ initHabbit, setInitHabbit ] = useState<string>(habbit);    
+    
+    // Handle submit function
     const handleSubmit = () => {
-        dispatch(initConcentrationTime(initConcentration*60));
-        dispatch(initRelaxTime(initRelax*60));
-        dispatch(setNewHabbit(initHabbit))
+        dispatch(SetNewConcentrationTime(initConcentration * 60));
+        dispatch(SetNewRelaxTime(initRelax * 60));
+        dispatch(setNewHabbit(initHabbit));
         navigation.navigate('WorkCard');
     }
 
-
     return (            
-        <View style={[styles.times, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}>
+      <View 
+        style={[styles.times, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}
+      >
         <Text style={[styles.timeTitle, styles.card, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}>
           Initialise tes temps:
         </Text>
         <View style={styles.initTime}>
           <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Concentration:</Text>
-          <NumericInput
-            onChange={value => setInitConcentration(value)} 
-            step={1}
-            value={initConcentration}
-            borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            totalWidth={110}
-            totalHeight={38}
-            textColor={theme === "light" ? Light.text : Dark.text}
-            rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
-            rounded={true}
-            containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
-          />
+          { initConcentration !== undefined && 
+              <NumericInput
+                minValue={1}
+                maxValue={120}
+                onChange={value => setInitConcentration(value)} 
+                step={5}
+                value={initConcentration}
+                borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
+                totalWidth={110}
+                totalHeight={38}
+                textColor={theme === "light" ? Light.text : Dark.text}
+                rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+                leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+                iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
+                rounded={true}
+                containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
+              />
+          }
         </View>
         <View style={styles.initTime}>
           <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Pause:</Text>
-          <NumericInput
-            onChange={value => setInitRelax(value)} 
-            step={1}
-            value={initRelax}
-            borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            totalWidth={110}
-            totalHeight={38}
-            textColor={theme === "light" ? Light.text : Dark.text}
-            rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
-            iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
-            rounded={true}
-            containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
-          />
+          { initRelax !== undefined && 
+            <NumericInput
+              minValue={1}
+              maxValue={60}
+              onChange={value => value > 0 ? setInitRelax(value) : setInitRelax(1)} 
+              step={1}
+              value={initRelax}
+              borderColor={theme === 'light' ? Light.secondary : Dark.secondary}
+              totalWidth={110}
+              totalHeight={38}
+              textColor={theme === "light" ? Light.text : Dark.text}
+              rightButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+              leftButtonBackgroundColor={theme === 'light' ? Light.secondary : Dark.secondary}
+              iconStyle={{color: theme === 'light' ? Light.text : Dark.text}}
+              rounded={true}
+              containerStyle={{alignSelf: 'center', marginVertical: 5, borderRadius: 10}}
+            />
+          }
         </View>
         <View style={styles.initTime}>
           <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Habitude à implémenter:</Text>
@@ -129,7 +143,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
       },
       initTime: {
-        marginBottom: 15
+        marginBottom: 15,
       },
       timeTitle: {
         fontSize: 15,

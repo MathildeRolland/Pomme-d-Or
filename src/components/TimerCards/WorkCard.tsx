@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux';
 import { StyleSheet, View, Text, Modal, Alert, ImageBackground, Vibration } from 'react-native';
 import { Dark, Light } from '../../../assets/vars/colors'
-import { setIsConcentrationModeOn, setIsRelaxModeOn } from '../../redux/actions';
-import { RootState } from '../../redux';
 import HabbitReminder from './HabbitReminder';
 
 // == RN PAPER
@@ -32,7 +31,6 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
     // Refs
     const isTimerOn = useRef(false);
     const countdown: { current: NodeJS.Timeout | null } = useRef(null);
-    // const time: { current: number } = useRef(initConcentrationTime);
 
     // Vibrations settings
     const ONE_SECOND = 1000;
@@ -84,7 +82,6 @@ const WorkCard = ({ navigation }: WorkCardProps) => {
         }
     }
 
-    console.log("init concentration", initConcentrationTime)
 
     // Component
     return (

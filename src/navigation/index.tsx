@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Dark, Light } from '../../assets/vars/colors';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Switch, Pressable } from 'react-native';
+import { Switch, Pressable, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 
@@ -35,6 +35,7 @@ export const AppNavigation: React.FC<StackParamsList> = () => {
         isToggle === true ? dispatch(switchTheme('dark')) : dispatch(switchTheme('light'));
     }, [isToggle]);
 
+
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="LandingPage">
@@ -42,10 +43,16 @@ export const AppNavigation: React.FC<StackParamsList> = () => {
                     name="LandingPage"
                     component={LandingPage}
                     options={({ navigation }) => ({
-                        title: `Pomme d'Or`,
+                        title: "Pomme d'Or",
                         headerStyle: {
                             backgroundColor: Dark.gold,
                         },
+                        headerTitle: () => (
+                            <Image 
+                                source={require('../../assets/logo.png')}
+                                style={{width: 60, height: 60}}
+                            />
+                        ),
                         headerRight: () => (
                             <Switch 
                                 onValueChange={(() => setIsToggle(!isToggle))}

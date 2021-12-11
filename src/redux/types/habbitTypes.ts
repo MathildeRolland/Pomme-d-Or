@@ -3,11 +3,8 @@ export interface newHabbitInterface {
     habbit: string
 }
 
-
 // Types
 export const SET_NEW_HABBIT = "SET_NEW_HABBIT";
-
-
 
 // Actions Types
 interface setNewHabbit {
