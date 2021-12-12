@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 18,
       paddingVertical: 10,
-      marginVertical: 40,
+      marginVertical: 35,
+      width: '100%'
     }
 });

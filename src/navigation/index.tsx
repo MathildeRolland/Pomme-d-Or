@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Dark, Light } from '../../assets/vars/colors';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Switch, Pressable, Image } from 'react-native';
+import { Switch, Pressable, Image, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 
@@ -47,10 +47,21 @@ export const AppNavigation: React.FC<StackParamsList> = () => {
                         headerStyle: {
                             backgroundColor: Dark.gold,
                         },
-                        headerTitle: () => (
+                        headerLeft: () => (
                             <Image 
                                 source={require('../../assets/logo.png')}
-                                style={{width: 60, height: 60}}
+                                style={{
+                                    ...Platform.select({
+                                        ios: {
+                                            width: 45,
+                                            height: 45
+                                        },
+                                        android: {
+                                            width: 55,
+                                            height: 55
+                                        }
+                                    })
+                                }}
                             />
                         ),
                         headerRight: () => (
@@ -82,7 +93,7 @@ export const AppNavigation: React.FC<StackParamsList> = () => {
                                 <Pressable
                                     onPress={() => navigation.navigate('Settings')}
                                 >
-                                    <MaterialIcons name="settings" size={24} color={Dark.dark} />
+                                    <MaterialIcons name="settings" size={24} color={Dark.dark} style={{marginLeft: 10}} />
                                 </Pressable>
                             </>
                         )

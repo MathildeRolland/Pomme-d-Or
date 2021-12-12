@@ -42,9 +42,11 @@ const Settings = () => {
       <View 
         style={[styles.times, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}
       >
-        <Text style={[styles.timeTitle, styles.card, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}>
-          Initialise tes temps:
-        </Text>
+        <View style={[styles.titleContainer, styles.card, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}>
+          <Text style={styles.timeTitle}>
+            Initialise tes temps:
+          </Text>
+        </View>
         <View style={styles.initTime}>
           <Text style={[styles.timeTitle, theme === "light" ? {color: Light.text} : {color: Dark.text}]}>Concentration:</Text>
           { initConcentration !== undefined && 
@@ -147,16 +149,19 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        overflow: 'hidden'
       },
       initTime: {
         marginBottom: 15,
       },
+      titleContainer: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        marginBottom: 5
+      },
       timeTitle: {
-        fontSize: 15,
+        fontSize: 18,
         alignSelf: 'center',
-        marginVertical: 5,
-        color: Light.text
+        marginVertical: 2,
       },
       textarea: {
         width: '80%',
@@ -167,7 +172,7 @@ const styles = StyleSheet.create({
         maxHeight: 60
       },
       button: {
-        marginTop: 15,
+        marginTop: 10,
         marginBottom: 10,
         width: '40%',
         alignSelf: 'center'
