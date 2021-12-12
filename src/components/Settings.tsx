@@ -42,8 +42,8 @@ const Settings = () => {
       <View 
         style={[styles.times, theme === 'light' ? {backgroundColor: Light.primary} : {backgroundColor: Dark.primary}]}
       >
-        <View style={[styles.titleContainer, styles.card, theme === "light" ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}>
-          <Text style={styles.timeTitle}>
+        <View style={[styles.titleContainer, styles.card, theme === "light" ? {backgroundColor: Light.secondary} : {backgroundColor: Dark.secondary}]}>
+          <Text style={[styles.timeTitle, theme === 'light' ? {color: Light.text} : {color: Dark.text}]}>
             Initialise tes temps:
           </Text>
         </View>
@@ -97,7 +97,7 @@ const Settings = () => {
             value={initHabbit}
             blurOnSubmit={true}
             onSubmitEditing={() => Keyboard.dismiss()}
-            style={[styles.textarea, theme === 'light' ? {backgroundColor: Light.secondary} : {backgroundColor: Dark.secondary}]}
+            style={[styles.textarea, theme === 'light' ? {backgroundColor: Light.secondary, color: Light.text} : {backgroundColor: Dark.secondary, color: Dark.text}]}
             onChangeText={(value) => setInitHabbit(value)}
           />
         </View>
